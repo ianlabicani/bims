@@ -12,14 +12,16 @@
 
 <body>
     @auth
-        @if (Auth::user())
+        @if (Auth::user()->hasRole('campus'))
             @include('campus._ui.navbar')
         @endif
 
     @else
         @include('guest._ui.navbar')
     @endauth
-    @yield('content')
+    <div class="py-2">
+        @yield('content')
+    </div>
 </body>
 
 </html>
