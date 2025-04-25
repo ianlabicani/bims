@@ -20,7 +20,6 @@
                         <td>
                             <a href="{{ route('campus.buildings.rooms.show', [$building, $room]) }}"
                                 class="btn btn-info">View</a>
-                            <a href="{{ url('campus.rooms.edit', $room) }}" class="btn btn-warning">Edit</a>
                         </td>
                     </tr>
                 @endforeach

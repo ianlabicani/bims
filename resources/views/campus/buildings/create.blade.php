@@ -62,6 +62,11 @@
             </div>
 
             <div class="form-group mt-2">
+                <label for="LGU_cert">LGU Certificate</label>
+                <input type="file" name="LGU_cert" id="LGU_cert" class="form-control">
+            </div>
+
+            <div class="form-group mt-2">
                 <label for="FIRE_cert">FIRE Certificate</label>
                 <input type="file" name="FIRE_cert" id="FIRE_cert" class="form-control">
             </div>
