@@ -5,6 +5,7 @@ namespace App\Http\Controllers\Campus;
 use App\Http\Controllers\Controller;
 use App\Models\Building;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Storage;
 
 class BuildingController extends Controller
 {
@@ -79,5 +80,46 @@ class BuildingController extends Controller
         return redirect()->route('campus.buildings.index')->with('success', 'Building created successfully.');
     }
 
+    public function edit(Building $building)
+    {
+        return view('campus.buildings.edit', compact('building'));
+    }
+
+    public function update(Request $request, Building $building)
+    {
+        $validated = $request->validate([
+            'name' => 'required|string|max:255',
+            'description' => 'nullable|string',
+            'address' => 'nullable|string',
+            'latitude' => 'nullable|numeric',
+            'longitude' => 'nullable|numeric',
+            'floor_area' => 'nullable|numeric',
+            'type' => 'nullable|string',
+            'number_of_floors' => 'nullable|integer',
+            'number_of_rooms' => 'nullable|integer',
+            'number_of_CRs' => 'nullable|integer',
+            'college_office_assigned' => 'nullable|string',
+            'completed_at' => 'nullable|date',
+
+            'CSU_cert' => 'nullable|file|mimes:pdf,jpg,jpeg,png',
+            'FIRE_cert' => 'nullable|file|mimes:pdf,jpg,jpeg,png',
+            'OCCUPANCY_cert' => 'nullable|file|mimes:pdf,jpg,jpeg,png',
+            'LGU_cert' => 'nullable|file|mimes:pdf,jpg,jpeg,png',
+        ]);
+
+        foreach (['CSU_cert', 'FIRE_cert', 'OCCUPANCY_cert', 'LGU_cert'] as $cert) {
+            if ($request->hasFile($cert)) {
+                if ($building->$cert && Storage::disk('public')->exists($building->$cert)) {
+                    Storage::disk('public')->delete($building->$cert);
+                }
+
+                $validated[$cert] = $request->file($cert)->store('certs', 'public');
+            }
+        }
+
+        $building->update($validated);
+
+        return redirect()->route('campus.buildings.index')->with('success', 'Building updated successfully.');
+    }
 
 }

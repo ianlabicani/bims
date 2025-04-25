@@ -55,6 +55,7 @@
         </div>
 
         <a href="{{ route('campus.buildings.index') }}" class="btn btn-primary">Back to Buildings</a>
+        <a href="{{ route('campus.buildings.edit', $building->id) }}" class="btn btn-warning">Edit Building</a>
         <a href="{{ route('campus.buildings.create') }}" class="btn btn-success">Add New Building</a>
     </div>
 @endsection
