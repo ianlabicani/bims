@@ -15,6 +15,7 @@ class RoleSeeder extends Seeder
     {
         $roles = [
             'admin',
+            'central',
             'campus',
             'user',
         ];

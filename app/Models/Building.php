@@ -1,0 +1,27 @@
+<?php
+
+namespace App\Models;
+
+use Illuminate\Database\Eloquent\Concerns\HasUuids;
+use Illuminate\Database\Eloquent\Model;
+
+class Building extends Model
+{
+    use HasUuids;
+
+    protected $fillable = [
+        'name',
+        'location',
+        'description',
+        'campus_id',
+    ];
+
+    protected $casts = [
+        'location' => 'array',
+    ];
+
+    public function campus()
+    {
+        return $this->belongsTo(Campus::class);
+    }
+}

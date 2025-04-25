@@ -11,25 +11,25 @@
         <div class="collapse navbar-collapse" id="navbarNav">
             <ul class="navbar-nav ms-auto">
                 <li class="nav-item">
-                    <a class="nav-link {{ request()->routeIs('campus.dashboard') ? 'active' : '' }}"
-                        href="{{ route('campus.dashboard') }}">
+                    <a class="nav-link {{ request()->routeIs('admin.dashboard') ? 'active' : '' }}"
+                        href="{{ route('admin.dashboard') }}">
                         <i class="fas fa-tachometer-alt"></i> Dashboard
                     </a>
                 </li>
                 <li class="nav-item dropdown">
-                    <a class="nav-link dropdown-toggle {{ request()->is('campus/buildings*') ? 'active' : '' }}"
-                        href="#" id="buildingsDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
-                        <i class="fas fa-building"></i> Buildings
+                    <a class="nav-link dropdown-toggle {{ request()->is('admin/users*') ? 'active' : '' }}" href="#"
+                        id="usersDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+                        <i class="fas fa-users"></i> Users
                     </a>
-                    <ul class="dropdown-menu dropdown-menu-end" aria-labelledby="buildingsDropdown">
+                    <ul class="dropdown-menu dropdown-menu-end" aria-labelledby="usersDropdown">
                         <li>
-                            <a class="dropdown-item" href="{{ route('campus.buildings.index') }}">
-                                <i class="fas fa-list"></i> View All Buildings
+                            <a class="dropdown-item" href="{{ route('admin.users.index') }}">
+                                <i class="fas fa-list"></i> View All Users
                             </a>
                         </li>
                         <li>
-                            <a class="dropdown-item text-success" href="{{ route('campus.buildings.create') }}">
-                                <i class="fas fa-plus-circle"></i> Add Building
+                            <a class="dropdown-item text-success" href="{{ url('admin.users.create') }}">
+                                <i class="fas fa-plus-circle"></i> Add User
                             </a>
                         </li>
                     </ul>

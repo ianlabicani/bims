@@ -2,6 +2,7 @@
 
 namespace Database\Seeders;
 
+use App\Models\Campus;
 use App\Models\Role;
 use App\Models\User;
 use Illuminate\Database\Seeder;
@@ -16,9 +17,9 @@ class UserSeeder extends Seeder
     {
         $users = [
             [
-                'name' => 'Central Admin',
-                'email' => 'central@csu.edu.ph',
-                'role' => 'Central',
+                'name' => 'Admin',
+                'email' => 'admin@csu.edu.ph',
+                'role' => 'Admin',
             ],
             [
                 'name' => 'Andrews Admin',
@@ -77,6 +78,17 @@ class UserSeeder extends Seeder
             $createdUser->roles()->attach(
                 Role::where('name', $user['role'])->first()
             );
+
+            if ($user['role'] === 'Campus') {
+                // Match by campus name found in user name (e.g., "Andrews Admin" => "Andrews")
+                $campusName = explode(' ', $user['name'])[0];
+                $campus = Campus::where('name', 'like', "%$campusName%")->first();
+
+                if ($campus) {
+                    $createdUser->update(['campus_id' => $campus->id]);
+                }
+            }
+
         }
     }
 }

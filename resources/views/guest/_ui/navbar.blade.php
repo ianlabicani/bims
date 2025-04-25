@@ -1,6 +1,5 @@
 <nav class="navbar navbar-expand-lg bg-navbar shadow-sm">
     <div class="container">
-        <img src="" alt="logo" height="40" class="me-3">
         <a class="navbar-brand fw-bold" href="{{ route('guest.welcome') }}">BIMS</a>
 
 
@@ -15,18 +14,13 @@
                 @auth
                     @if (Auth::user()->hasRole('admin'))
                         <li class="nav-item">
-                            <a class="nav-link {{ request()->urlIs('admin.dashboard') ? 'active' : '' }}"
-                                href="{{ url('admin.dashboard') }} ">Dashboard</a>
+                            <a class="nav-link {{ request()->routeIs('admin.dashboard') ? 'active' : '' }}"
+                                href="{{ route('admin.dashboard') }} ">Dashboard</a>
                         </li>
-                    @elseif (Auth::user()->hasRole('landlord'))
+                    @elseif (Auth::user()->hasRole('campus'))
                         <li class="nav-item">
-                            <a class="nav-link {{ request()->urlIs('landlord.dashboard') ? 'active' : '' }}"
-                                href="{{ url('landlord.dashboard') }}">Dashboard</a>
-                        </li>
-                    @elseif (Auth::user()->hasRole('renter'))
-                        <li class="nav-item">
-                            <a class="nav-link {{ request()->urlIs('renter.dashboard') ? 'active' : '' }}"
-                                href="{{ url('renter.dashboard') }}">Dashboard</a>
+                            <a class="nav-link {{ request()->routeIs('campus.dashboard') ? 'active' : '' }}"
+                                href="{{ route('campus.dashboard') }}">Dashboard</a>
                         </li>
                     @endif
                 @else
