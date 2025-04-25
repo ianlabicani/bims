@@ -59,6 +59,7 @@
         <a href="{{ route('campus.buildings.create') }}" class="btn btn-success">Add New Building</a>
 
         <a href="{{ route('campus.buildings.rooms.index', $building) }}" class="btn btn-primary">show rooms</a>
+        <a href="{{ route('campus.buildings.items.index', $building) }}" class="btn btn-primary">show items</a>
 
     </div>
 @endsection
