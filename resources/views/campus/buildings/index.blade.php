@@ -18,14 +18,6 @@
                         <td class="d-flex gap-2">
                             <a href="{{ route('campus.buildings.show', $building) }}" class="btn btn-info">Show</a>
                             <a href="{{ route('campus.buildings.edit', $building) }}" class="btn btn-warning">Edit</a>
-                            <form action="{{ route('campus.buildings.destroy', $building) }}" method="POST">
-                                @csrf
-                                @method('DELETE')
-                                <button type="submit" class="btn btn-danger"
-                                    onclick="return confirm('Are you sure you want to delete this building?')">
-                                    Delete
-                                </button>
-                            </form>
                         </td>
                     </tr>
                 @endforeach

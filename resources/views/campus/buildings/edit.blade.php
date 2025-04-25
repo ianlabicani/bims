@@ -77,7 +77,13 @@
                 <label for="CSU_cert">CSU Certificate</label>
                 <input type="file" name="CSU_cert" id="CSU_cert" class="form-control">
                 @if ($building->CSU_cert)
-                    <a href="{{ asset('storage/' . $building->CSU_cert) }}" target="_blank">View Existing</a>
+                    <div class="mt-2">
+                        <label class="form-label d-block">Existing CSU Certificate</label>
+                        <a href="{{ asset('storage/' . $building->CSU_cert) }}" target="_blank"
+                            class="btn btn-outline-secondary">
+                            <i class="fas fa-file-pdf"></i> View Existing PDF
+                        </a>
+                    </div>
                 @endif
             </div>
 
@@ -85,7 +91,13 @@
                 <label for="FIRE_cert">FIRE Certificate</label>
                 <input type="file" name="FIRE_cert" id="FIRE_cert" class="form-control">
                 @if ($building->FIRE_cert)
-                    <a href="{{ asset('storage/' . $building->FIRE_cert) }}" target="_blank">View Existing</a>
+                    <div class="mt-2">
+                        <label class="form-label d-block">Existing FIRE Certificate</label>
+                        <a href="{{ asset('storage/' . $building->FIRE_cert) }}" target="_blank"
+                            class="btn btn-outline-secondary">
+                            <i class="fas fa-file-pdf"></i> View Existing PDF
+                        </a>
+                    </div>
                 @endif
             </div>
 
@@ -93,7 +105,13 @@
                 <label for="OCCUPANCY_cert">Occupancy Certificate</label>
                 <input type="file" name="OCCUPANCY_cert" id="OCCUPANCY_cert" class="form-control">
                 @if ($building->OCCUPANCY_cert)
-                    <a href="{{ asset('storage/' . $building->OCCUPANCY_cert) }}" target="_blank">View Existing</a>
+                    <div class="mt-2">
+                        <label class="form-label d-block">Existing Occupancy Certificate</label>
+                        <a href="{{ asset('storage/' . $building->OCCUPANCY_cert) }}" target="_blank"
+                            class="btn btn-outline-secondary">
+                            <i class="fas fa-file-pdf"></i> View Existing PDF
+                        </a>
+                    </div>
                 @endif
             </div>
 
@@ -101,7 +119,13 @@
                 <label for="LGU_cert">LGU Certificate</label>
                 <input type="file" name="LGU_cert" id="LGU_cert" class="form-control">
                 @if ($building->LGU_cert)
-                    <a href="{{ asset('storage/' . $building->LGU_cert) }}" target="_blank">View Existing</a>
+                    <div class="mt-2">
+                        <label class="form-label d-block">Existing LGU Certificate</label>
+                        <a href="{{ asset('storage/' . $building->LGU_cert) }}" target="_blank"
+                            class="btn btn-outline-secondary">
+                            <i class="fas fa-file-pdf"></i> View Existing PDF
+                        </a>
+                    </div>
                 @endif
             </div>
 
