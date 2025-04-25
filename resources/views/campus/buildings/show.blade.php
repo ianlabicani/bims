@@ -2,6 +2,8 @@
 
 @section('campus-content')
     <div class="container">
+        <a href="{{ route('campus.buildings.index') }}" class="btn btn-primary">Back to Buildings</a>
+
         <h1>{{ $building->name }}</h1>
 
         <p><strong>Description:</strong> {{ $building->description ?? 'No description available.' }}</p>
@@ -53,8 +55,6 @@
                 </li>
             </ul>
         </div>
-
-        <a href="{{ route('campus.buildings.index') }}" class="btn btn-primary">Back to Buildings</a>
         <a href="{{ route('campus.buildings.edit', $building) }}" class="btn btn-warning">Edit Building</a>
         <a href="{{ route('campus.buildings.create') }}" class="btn btn-success">Add New Building</a>
 

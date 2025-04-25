@@ -3,7 +3,7 @@
 @section('campus-content')
     <div class="container">
         <h1>Rooms</h1>
-        <a href="{{ route('campus.buildings.show', $building) }}" class="btn btn-primary">Back Room</a>
+        <a href="{{ route('campus.buildings.show', $building) }}" class="btn btn-primary">Back to Building</a>
         <table class="table">
             <thead>
                 <tr>
