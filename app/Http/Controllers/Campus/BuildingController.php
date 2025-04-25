@@ -4,6 +4,7 @@ namespace App\Http\Controllers\Campus;
 
 use App\Http\Controllers\Controller;
 use App\Models\Building;
+use App\Models\Room;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Storage;
 
@@ -75,7 +76,18 @@ class BuildingController extends Controller
         }
 
         // Step 5: Create the Building record in the database
-        Building::create($validated);
+        $createdBuilding = Building::create($validated);
+
+        // Step 6: Create rooms based on the number_of_rooms field
+        if (isset($validated['number_of_rooms']) && $validated['number_of_rooms'] > 0) {
+            for ($i = 1; $i <= $validated['number_of_rooms']; $i++) {
+                $createdBuilding->rooms()->create([
+                    'building_id' => $createdBuilding->id,
+                    'name' => "Room $i",
+                    'description' => "Description for Room $i",
+                ]);
+            }
+        }
 
         return redirect()->route('campus.buildings.index')->with('success', 'Building created successfully.');
     }
