@@ -88,7 +88,6 @@ class UserSeeder extends Seeder
                     $createdUser->update(['campus_id' => $campus->id]);
                 }
             }
-
         }
     }
 }

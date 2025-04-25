@@ -8,8 +8,6 @@
             <thead>
                 <tr>
                     <th>Name</th>
-                    <th>Location</th>
-                    <th>Description</th>
                     <th>Actions</th>
                 </tr>
             </thead>
@@ -17,15 +15,16 @@
                 @foreach ($buildings as $building)
                     <tr>
                         <td>{{ $building->name }}</td>
-                        <td>{{ $building->location }}</td>
-                        <td>{{ $building->description }}</td>
-                        <td>
+                        <td class="d-flex gap-2">
+                            <a href="{{ route('campus.buildings.show', $building) }}" class="btn btn-info">Show</a>
                             <a href="{{ route('campus.buildings.edit', $building) }}" class="btn btn-warning">Edit</a>
-                            <form action="{{ route('campus.buildings.destroy', $building) }}" method="POST"
-                                style="display:inline;">
+                            <form action="{{ route('campus.buildings.destroy', $building) }}" method="POST">
                                 @csrf
                                 @method('DELETE')
-                                <button type="submit" class="btn btn-danger">Delete</button>
+                                <button type="submit" class="btn btn-danger"
+                                    onclick="return confirm('Are you sure you want to delete this building?')">
+                                    Delete
+                                </button>
                             </form>
                         </td>
                     </tr>

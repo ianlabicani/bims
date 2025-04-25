@@ -15,7 +15,22 @@ return new class extends Migration {
             $table->foreignUuid('campus_id')->constrained('campuses')->cascadeOnDelete();
             $table->string('name');
             $table->json('location');
-            $table->text('description')->nullable();
+            $table->text('description');
+            $table->string('address');
+            $table->string('floor_area');
+            $table->string('type');
+            $table->string('number_of_floors');
+            $table->string('number_of_rooms');
+            $table->string('number_of_CRs');
+            $table->string('CSU_cert');
+            $table->string('FIRE_cert');
+            $table->string('OCCUPANCY_cert');
+            $table->string('LGU_cert');
+            $table->string('college_office_assigned');
+            $table->date('completed_at');
+            $table->dropColumn('location');
+            $table->decimal('longitude', 10, 7);
+            $table->decimal('latitude', 10, 7);
             $table->timestamps();
         });
     }

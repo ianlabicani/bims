@@ -10,14 +10,23 @@ class Building extends Model
     use HasUuids;
 
     protected $fillable = [
-        'name',
-        'location',
-        'description',
         'campus_id',
-    ];
-
-    protected $casts = [
-        'location' => 'array',
+        'name',
+        'description',
+        'address',
+        'longitude',
+        'latitude',
+        'floor_area',
+        'type',
+        'number_of_floors',
+        'number_of_rooms',
+        'number_of_CRs',
+        'CSU_cert',
+        'FIRE_cert',
+        'OCCUPANCY_cert',
+        'LGU_cert',
+        'college_office_assigned',
+        'completed_at',
     ];
 
     public function campus()
