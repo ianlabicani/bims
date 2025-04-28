@@ -10,9 +10,9 @@ use Illuminate\Support\Facades\Storage;
 
 class BuildingController extends Controller
 {
-    public function index()
+    public function index(Request $request)
     {
-        $buildings = Building::all();
+        $buildings = $request->user()->campus->buildings;
         return view('campus.buildings.index', compact('buildings'));
     }
 
