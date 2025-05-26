@@ -22,9 +22,7 @@
 </head>
 
 <body>
-    <div class="py-2">
-        @yield('content')
-    </div>
+    @yield('content')
 
     @stack('scripts')
 </body>

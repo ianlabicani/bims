@@ -11,7 +11,6 @@ Route::name('campus.')->prefix('campus')->middleware(['auth', 'verified', 'role:
     Route::resource('buildings', BuildingController::class);
     Route::resource('buildings.rooms', RoomController::class);
     Route::resource('buildings.items', ItemController::class);
-
 });
 
 

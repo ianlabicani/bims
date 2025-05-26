@@ -12,7 +12,7 @@ class BuildingController extends Controller
 {
     public function index(Request $request)
     {
-        $buildings = $request->user()->campus->buildings;
+        $buildings = $request->user()->campus->buildings()->withCount(['rooms', 'items'])->get();
         return view('campus.buildings.index', compact('buildings'));
     }
 

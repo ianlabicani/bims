@@ -87,7 +87,7 @@
                                     <h3 class="text-xl font-semibold text-gray-900 truncate">{{ $building->name }}</h3>
                                     <span
                                         class="inline-flex px-2 py-1 text-xs font-semibold rounded-full
-                                                    {{ $building->status === 'active' ? 'bg-green-100 text-green-800' : 'bg-gray-100 text-gray-800' }}">
+                                                                {{ $building->status === 'active' ? 'bg-green-100 text-green-800' : 'bg-gray-100 text-gray-800' }}">
                                         {{ ucfirst($building->status ?? 'active') }}
                                     </span>
                                 </div>
@@ -195,7 +195,7 @@
                             '<span class="bg-blue-100 text-blue-800 px-2 py-1 rounded text-xs">' + (building.rooms_count || 0) + ' rooms</span>' +
                             '<span class="bg-green-100 text-green-800 px-2 py-1 rounded text-xs">' + (building.items_count || 0) + ' items</span>' +
                             '</div>' +
-                            '<a href="{{ route("campus.buildings.show", "") }}/' + building.id + '" class="inline-block mt-2 bg-blue-600 text-white px-3 py-1 rounded text-xs hover:bg-blue-700">View Building</a>' +
+                            '<a href="/campus/buildings/' + building.id + '" class="inline-block mt-2 bg-blue-600 text-white px-3 py-1 rounded text-xs hover:bg-blue-700">View Building</a>' +
                             '</div>'
                         );
 
@@ -236,7 +236,7 @@
 
                         // Make the map clickable to view building details
                         buildingMap.on('click', function () {
-                            window.location.href = '{{ route("campus.buildings.show", "") }}/' + building.id;
+                            window.location.href = '/campus/buildings/' + building.id;
                         });
 
                         // Add hover effect
@@ -253,22 +253,22 @@
             // Custom CSS for building markers
             var style = document.createElement('style');
             style.textContent = `
-                        .building-marker {
-                            background: transparent;
-                            border: none;
-                        }
+                                .building-marker {
+                                    background: transparent;
+                                    border: none;
+                                }
 
-                        .leaflet-container {
-                            background: #f0f0f0 !important;
-                        }
+                                .leaflet-container {
+                                    background: #f0f0f0 !important;
+                                }
 
-                        .line-clamp-2 {
-                            display: -webkit-box;
-                            -webkit-line-clamp: 2;
-                            -webkit-box-orient: vertical;
-                            overflow: hidden;
-                        }
-                    `;
+                                .line-clamp-2 {
+                                    display: -webkit-box;
+                                    -webkit-line-clamp: 2;
+                                    -webkit-box-orient: vertical;
+                                    overflow: hidden;
+                                }
+                            `;
             document.head.appendChild(style);
         </script>
     @endpush
