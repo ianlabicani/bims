@@ -1,10 +1,10 @@
 <section>
     <header>
-        <h2 class="h4 mb-3 fw-medium">
+        <h2 class="text-xl font-semibold text-gray-900 mb-4">
             Profile Information
         </h2>
 
-        <p class="text-muted small mb-4">
+        <p class="text-gray-600 text-sm mb-6">
             Update your account's profile information and email address.
         </p>
     </header>
@@ -13,39 +13,42 @@
         @csrf
     </form>
 
-    <form method="post" action="{{ route('profile.update') }}" class="mb-5">
+    <form method="post" action="{{ route('profile.update') }}" class="space-y-6">
         @csrf
         @method('patch')
 
-        <div class="mb-3">
-            <label for="name" class="form-label">Name</label>
-            <input id="name" name="name" type="text" class="form-control" value="{{ old('name', $user->name) }}"
-                required autofocus autocomplete="name">
+        <div>
+            <label for="name" class="block text-sm font-medium text-gray-700 mb-2">Name</label>
+            <input id="name" name="name" type="text"
+                class="w-full px-3 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent"
+                value="{{ old('name', $user->name) }}" required autofocus autocomplete="name">
             @error('name')
-                <div class="text-danger mt-1 small">{{ $message }}</div>
+                <p class="text-red-500 text-sm mt-1">{{ $message }}</p>
             @enderror
         </div>
 
-        <div class="mb-3">
-            <label for="email" class="form-label">Email</label>
-            <input id="email" name="email" type="email" class="form-control" value="{{ old('email', $user->email) }}"
-                required autocomplete="username">
+        <div>
+            <label for="email" class="block text-sm font-medium text-gray-700 mb-2">Email</label>
+            <input id="email" name="email" type="email"
+                class="w-full px-3 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent"
+                value="{{ old('email', $user->email) }}" required autocomplete="username">
             @error('email')
-                <div class="text-danger mt-1 small">{{ $message }}</div>
+                <p class="text-red-500 text-sm mt-1">{{ $message }}</p>
             @enderror
 
             @if ($user instanceof \Illuminate\Contracts\Auth\MustVerifyEmail && !$user->hasVerifiedEmail())
-                <div>
-                    <p class="small mt-2 text-muted">
+                <div class="mt-3">
+                    <p class="text-sm text-gray-600">
                         Your email address is unverified.
 
-                        <button form="send-verification" class="btn btn-link p-0 m-0 align-baseline text-decoration-none">
+                        <button form="send-verification"
+                            class="inline-flex items-center text-blue-600 hover:text-blue-800 underline">
                             Click here to re-send the verification email.
                         </button>
                     </p>
 
                     @if (session('status') === 'verification-link-sent')
-                        <p class="mt-2 small text-success">
+                        <p class="mt-2 text-sm text-green-600">
                             A new verification link has been sent to your email address.
                         </p>
                     @endif
@@ -53,12 +56,19 @@
             @endif
         </div>
 
-        <div class="d-flex align-items-center gap-3">
-            <button type="submit" class="btn btn-primary">Save</button>
+        <div class="flex items-center space-x-4">
+            <button type="submit"
+                class="px-6 py-2 bg-blue-600 text-white rounded-lg hover:bg-blue-700 transition-colors duration-200">
+                <i class="fas fa-save mr-2"></i>
+                Save
+            </button>
 
             @if (session('status') === 'profile-updated')
                 <p x-data="{ show: true }" x-show="show" x-transition x-init="setTimeout(() => show = false, 2000)"
-                    class="text-muted small mb-0">Saved.</p>
+                    class="text-green-600 text-sm">
+                    <i class="fas fa-check mr-1"></i>
+                    Saved.
+                </p>
             @endif
         </div>
     </form>

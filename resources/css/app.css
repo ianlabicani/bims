@@ -1,4 +1,5 @@
-@import "bootstrap/dist/css/bootstrap.min.css";
+@import "tailwindcss";
+
 @import "../../public/css/fontawesome.min.css";
 @import "../../public/css/brands.min.css";
 @import "../../public/css/solid.min.css";

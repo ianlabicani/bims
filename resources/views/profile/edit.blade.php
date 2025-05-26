@@ -1,36 +1,21 @@
 <x-app-layout>
-    <div class="container py-4">
-        <div class="row">
-            <div class="col-12 mb-4">
-                <h2 class="h3 fw-semibold">
-                    Profile
-                </h2>
-            </div>
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8">
+        <div class="mb-8">
+            <h2 class="text-3xl font-bold text-gray-900">Profile</h2>
+            <p class="text-gray-600 mt-2">Manage your account settings and preferences.</p>
         </div>
 
-        <div class="row g-4">
-            <div class="col-12 col-lg-8">
-                <div class="card shadow-sm">
-                    <div class="card-body">
-                        @include('profile.partials.update-profile-information-form')
-                    </div>
-                </div>
+        <div class="space-y-8">
+            <div class="bg-white rounded-lg shadow-lg p-6">
+                @include('profile.partials.update-profile-information-form')
             </div>
 
-            <div class="col-12 col-lg-8">
-                <div class="card shadow-sm">
-                    <div class="card-body">
-                        @include('profile.partials.update-password-form')
-                    </div>
-                </div>
+            <div class="bg-white rounded-lg shadow-lg p-6">
+                @include('profile.partials.update-password-form')
             </div>
 
-            <div class="col-12 col-lg-8">
-                <div class="card shadow-sm">
-                    <div class="card-body">
-                        @include('profile.partials.delete-user-form')
-                    </div>
-                </div>
+            <div class="bg-white rounded-lg shadow-lg p-6">
+                @include('profile.partials.delete-user-form')
             </div>
         </div>
     </div>

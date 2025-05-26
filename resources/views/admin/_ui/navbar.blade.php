@@ -1,55 +1,108 @@
-<nav class="navbar navbar-expand-lg navbar-light bg-white border-bottom">
-    <div class="container">
-        <a class="navbar-brand" href="{{ route('guest.welcome') }}">
-            BIMS
-        </a>
-        <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav"
-            aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
-            <span class="navbar-toggler-icon"></span>
-        </button>
-
-        <div class="collapse navbar-collapse" id="navbarNav">
-            <ul class="navbar-nav ms-auto">
-                <li class="nav-item">
-                    <a class="nav-link {{ request()->routeIs('admin.dashboard') ? 'active' : '' }}"
-                        href="{{ route('admin.dashboard') }}">
-                        <i class="fas fa-tachometer-alt"></i> Dashboard
-                    </a>
-                </li>
-                <li class="nav-item dropdown">
-                    <a class="nav-link dropdown-toggle {{ request()->is('admin/users*') ? 'active' : '' }}" href="#"
-                        id="usersDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
-                        <i class="fas fa-users"></i> Users
-                    </a>
-                    <ul class="dropdown-menu dropdown-menu-end" aria-labelledby="usersDropdown">
-                        <li>
-                            <a class="dropdown-item" href="{{ route('admin.users.index') }}">
-                                <i class="fas fa-list"></i> View All Users
-                            </a>
-                        </li>
-                        <li>
-                            <a class="dropdown-item text-success" href="{{ url('admin.users.create') }}">
-                                <i class="fas fa-plus-circle"></i> Add User
-                            </a>
-                        </li>
-                    </ul>
-                </li>
-                <li class="nav-item dropdown">
-                    <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button"
-                        data-bs-toggle="dropdown" aria-expanded="false">
-                        <i class="fas fa-user"></i> Account
-                    </a>
-                    <ul class="dropdown-menu dropdown-menu-end" aria-labelledby="navbarDropdown">
-                        <li>
-                            <form method="POST" action="{{ route('logout') }}" class="d-inline">
-                                @csrf
-                                <button type="submit" class="dropdown-item text-danger"><i
-                                        class="fas fa-sign-out-alt"></i> Logout</button>
-                            </form>
-                        </li>
-                    </ul>
-                </li>
-            </ul>
+<nav class="bg-white border-b border-gray-200 shadow-sm">
+    <div class="max-w-7xl            </div>
         </div>
+    </div>
+</nav>
+
+<script>
+function toggleMobileMenu() {
+    const menu = document.getElementById('mobile-menu');
+    menu.classList.toggle('hidden');
+}
+</script>auto px-4 sm:px-6 lg:px-8">
+        <div class="flex justify-between h-16">
+            <div class="flex items-center">
+                <a class="text-xl font-bold text-gray-800 hover:text-gray-600" href="{{ route('guest.welcome') }}">
+                    BIMS
+                </a>
+            </div>
+
+            <!-- Mobile menu button -->
+            <div class="md:hidden flex items-center">
+                <button type="button" class="text-gray-500 hover:text-gray-600 focus:outline-none focus:text-gray-600"
+                    onclick="toggleMobileMenu()">
+                    <svg class="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                            d="M4 6h16M4 12h16M4 18h16" />
+                    </svg>
+                </button>
+            </div>
+
+            <!-- Desktop menu -->
+            <div class="hidden md:flex md:items-center md:space-x-6">
+                <a class="px-3 py-2 text-sm font-medium {{ request()->routeIs('admin.dashboard') ? 'text-blue-600 border-b-2 border-blue-600' : 'text-gray-700 hover:text-blue-600' }}"
+                    href="{{ route('admin.dashboard') }}">
+                    <i class="fas fa-tachometer-alt mr-1"></i> Dashboard
+                </a>
+
+                <div class="relative group">
+                    <button
+                        class="px-3 py-2 text-sm font-medium text-gray-700 hover:text-blue-600 focus:outline-none {{ request()->is('admin/users*') ? 'text-blue-600' : '' }}">
+                        <i class="fas fa-users mr-1"></i> Users
+                        <i class="fas fa-chevron-down ml-1 text-xs"></i>
+                    </button>
+                    <div
+                        class="absolute right-0 mt-2 w-48 bg-white rounded-md shadow-lg border border-gray-200 opacity-0 invisible group-hover:opacity-100 group-hover:visible transition-all duration-200 z-50">
+                        <div class="py-1">
+                            <a class="flex items-center px-4 py-2 text-sm text-gray-700 hover:bg-gray-100"
+                                href="{{ route('admin.users.index') }}">
+                                <i class="fas fa-list mr-2"></i> View All Users
+                            </a>
+                            <a class="flex items-center px-4 py-2 text-sm text-green-600 hover:bg-gray-100"
+                                href="{{ url('admin.users.create') }}">
+                                <i class="fas fa-plus-circle mr-2"></i> Add User
+                            </a>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="relative group">
+                    <button class="px-3 py-2 text-sm font-medium text-gray-700 hover:text-blue-600 focus:outline-none">
+                        <i class="fas fa-user mr-1"></i> Account
+                        <i class="fas fa-chevron-down ml-1 text-xs"></i>
+                    </button>
+                    <div
+                        class="absolute right-0 mt-2 w-48 bg-white rounded-md shadow-lg border border-gray-200 opacity-0 invisible group-hover:opacity-100 group-hover:visible transition-all duration-200 z-50">
+                        <div class="py-1">
+                            <form method="POST" action="{{ route('logout') }}" class="block">
+                                @csrf
+                                <button type="submit"
+                                    class="flex items-center w-full text-left px-4 py-2 text-sm text-red-600 hover:bg-gray-100">
+                                    <i class="fas fa-sign-out-alt mr-2"></i> Logout
+                                </button>
+                            </form>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Mobile menu -->
+        <div id="mobile-menu" class="md:hidden hidden">
+            <div class="px-2 pt-2 pb-3 space-y-1 border-t border-gray-200">
+                <a class="block px-3 py-2 text-base font-medium {{ request()->routeIs('admin.dashboard') ? 'text-blue-600 bg-blue-50' : 'text-gray-700 hover:text-blue-600 hover:bg-gray-50' }}"
+                    href="{{ route('admin.dashboard') }}">
+                    <i class="fas fa-tachometer-alt mr-2"></i> Dashboard
+                </a>
+                <a class="block px-3 py-2 text-base font-medium text-gray-700 hover:text-blue-600 hover:bg-gray-50"
+                    href="{{ route('admin.users.index') }}">
+                    <i class="fas fa-list mr-2"></i> View All Users
+                </a>
+                <a class="block px-3 py-2 text-base font-medium text-green-600 hover:bg-gray-50"
+                    href="{{ url('admin.users.create') }}">
+                    <i class="fas fa-plus-circle mr-2"></i> Add User
+                </a>
+                <form method="POST" action="{{ route('logout') }}" class="block">
+                    @csrf
+                    <button type="submit"
+                        class="block w-full text-left px-3 py-2 text-base font-medium text-red-600 hover:bg-gray-50">
+                        <i class="fas fa-sign-out-alt mr-2"></i> Logout
+                    </button>
+                </form>
+            </div>
+        </div>
+        </li>
+        </ul>
+    </div>
     </div>
 </nav>
