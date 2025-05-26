@@ -13,10 +13,17 @@ class Room extends Model
         'building_id',
         'name',
         'description',
+        'type',
+        'capacity',
     ];
 
     public function building()
     {
         return $this->belongsTo(Building::class);
+    }
+
+    public function items()
+    {
+        return $this->hasMany(Item::class);
     }
 }
