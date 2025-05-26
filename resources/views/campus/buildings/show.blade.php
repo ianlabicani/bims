@@ -63,12 +63,12 @@
                             </div>
                             <div class="grid grid-cols-1 sm:grid-cols-2 gap-4">
                                 <div>
-                                    <label class="block text-sm font-medium text-gray-500 mb-1">Latitude</label>
-                                    <p class="text-gray-900 text-sm sm:text-base font-mono break-all">{{ $building->latitude ?? 'N/A' }}</p>
+                                    <label class="block text-sm font-medium text-gray-500 mb-1">Department/Agency</label>
+                                    <p class="text-gray-900 text-sm sm:text-base break-words">{{ $building->department_agency ?? 'N/A' }}</p>
                                 </div>
                                 <div>
-                                    <label class="block text-sm font-medium text-gray-500 mb-1">Longitude</label>
-                                    <p class="text-gray-900 text-sm sm:text-base font-mono break-all">{{ $building->longitude ?? 'N/A' }}</p>
+                                    <label class="block text-sm font-medium text-gray-500 mb-1">Complete Agency Address</label>
+                                    <p class="text-gray-900 text-sm sm:text-base break-words">{{ $building->complete_agency_address ?? 'N/A' }}</p>
                                 </div>
                             </div>
                             <div>
@@ -77,7 +77,139 @@
                             </div>
                             <div>
                                 <label class="block text-sm font-medium text-gray-500 mb-1">Date Completed</label>
-                                <p class="text-gray-900 text-sm sm:text-base">{{ $building->completed_at ?? 'N/A' }}</p>
+                                <p class="text-gray-900 text-sm sm:text-base">{{ $building->completed_at ? $building->completed_at->format('M j, Y') : 'N/A' }}</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Building Description -->
+                <div class="bg-white rounded-lg shadow-lg p-4 sm:p-6">
+                    <h2 class="text-lg sm:text-xl lg:text-2xl font-semibold text-gray-900 mb-4">Description of Building</h2>
+                    <div class="grid grid-cols-1 gap-4">
+                        <div class="space-y-4">
+                            <div class="grid grid-cols-1 sm:grid-cols-2 gap-4">
+                                <div>
+                                    <label class="block text-sm font-medium text-gray-500 mb-1">In Whose Name Registered</label>
+                                    <p class="text-gray-900 text-sm sm:text-base break-words">{{ $building->registered_name ?? 'N/A' }}</p>
+                                </div>
+                                <div>
+                                    <label class="block text-sm font-medium text-gray-500 mb-1">Classification</label>
+                                    <p class="text-gray-900 text-sm sm:text-base break-words">{{ $building->classification ?? 'N/A' }}</p>
+                                </div>
+                            </div>
+                            <div>
+                                <label class="block text-sm font-medium text-gray-500 mb-1">Location</label>
+                                <p class="text-gray-900 text-sm sm:text-base break-words">
+                                    {{ $building->location_street ? $building->location_street.', ' : '' }}
+                                    {{ $building->location_brgy ? $building->location_brgy.', ' : '' }}
+                                    {{ $building->location_municipality ? $building->location_municipality.', ' : '' }}
+                                    {{ $building->location_province ?? 'N/A' }}
+                                </p>
+                            </div>
+                            <div class="grid grid-cols-1 sm:grid-cols-2 gap-4">
+                                <div>
+                                    <label class="block text-sm font-medium text-gray-500 mb-1">Physical Condition</label>
+                                    <p class="text-gray-900 text-sm sm:text-base break-words">{{ $building->physical_condition ?? 'N/A' }}</p>
+                                </div>
+                                <div>
+                                    <label class="block text-sm font-medium text-gray-500 mb-1">Land Ownership Status</label>
+                                    <p class="text-gray-900 text-sm sm:text-base break-words">{{ $building->land_ownership_status ?? 'N/A' }}</p>
+                                </div>
+                            </div>
+                            <div>
+                                <label class="block text-sm font-medium text-gray-500 mb-1">Brief Description of Condition</label>
+                                <p class="text-gray-900 text-sm sm:text-base break-words leading-relaxed">{{ $building->condition_description ?? 'N/A' }}</p>
+                            </div>
+                            <div class="grid grid-cols-1 sm:grid-cols-2 gap-4">
+                                <div>
+                                    <label class="block text-sm font-medium text-gray-500 mb-1">Date of Acquisition</label>
+                                    <p class="text-gray-900 text-sm sm:text-base">{{ $building->acquisition_date ? $building->acquisition_date->format('M j, Y') : 'N/A' }}</p>
+                                </div>
+                                <div>
+                                    <label class="block text-sm font-medium text-gray-500 mb-1">Mode of Acquisition</label>
+                                    <p class="text-gray-900 text-sm sm:text-base break-words">{{ $building->acquisition_mode ?? 'N/A' }}</p>
+                                </div>
+                            </div>
+                            <div>
+                                <label class="block text-sm font-medium text-gray-500 mb-1">Improvements Undertaken</label>
+                                @if($building->improvements && count($building->improvements) > 0)
+                                    <div class="flex flex-wrap gap-2 mt-1">
+                                        @foreach($building->improvements as $improvement)
+                                            <span class="inline-flex items-center px-2.5 py-1 rounded-full text-xs font-medium bg-blue-100 text-blue-800">
+                                                {{ $improvement }}
+                                            </span>
+                                        @endforeach
+                                    </div>
+                                @else
+                                    <p class="text-gray-900 text-sm sm:text-base">None specified</p>
+                                @endif
+                            </div>
+                            <div>
+                                <label class="block text-sm font-medium text-gray-500 mb-1">Existing Utilities</label>
+                                @if($building->existing_utilities && count($building->existing_utilities) > 0)
+                                    <div class="flex flex-wrap gap-2 mt-1">
+                                        @foreach($building->existing_utilities as $utility)
+                                            <span class="inline-flex items-center px-2.5 py-1 rounded-full text-xs font-medium bg-green-100 text-green-800">
+                                                {{ $utility }}
+                                            </span>
+                                        @endforeach
+                                    </div>
+                                @else
+                                    <p class="text-gray-900 text-sm sm:text-base">None specified</p>
+                                @endif
+                            </div>
+                            <div class="grid grid-cols-1 sm:grid-cols-2 gap-4">
+                                <div>
+                                    <label class="block text-sm font-medium text-gray-500 mb-1">Estimated Number of Occupants</label>
+                                    <p class="text-gray-900 text-sm sm:text-base">{{ $building->estimated_occupants ?? 'N/A' }}</p>
+                                </div>
+                                <div>
+                                    <label class="block text-sm font-medium text-gray-500 mb-1">Estimated Fund</label>
+                                    <p class="text-gray-900 text-sm sm:text-base">₱{{ number_format($building->estimated_fund ?? 0, 2) }}</p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Utilization Data -->
+                <div class="bg-white rounded-lg shadow-lg p-4 sm:p-6">
+                    <h2 class="text-lg sm:text-xl lg:text-2xl font-semibold text-gray-900 mb-4">Utilization Data</h2>
+                    <div class="grid grid-cols-1 gap-4">
+                        <div class="space-y-4">
+                            <div>
+                                <label class="block text-sm font-medium text-gray-500 mb-1">Specific Use of Building</label>
+                                <p class="text-gray-900 text-sm sm:text-base break-words leading-relaxed">{{ $building->specific_use ?? 'N/A' }}</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Document Information -->
+                <div class="bg-white rounded-lg shadow-lg p-4 sm:p-6">
+                    <h2 class="text-lg sm:text-xl lg:text-2xl font-semibold text-gray-900 mb-4">Document Information</h2>
+                    <div class="grid grid-cols-1 gap-4">
+                        <div class="space-y-4">
+                            <div class="grid grid-cols-1 sm:grid-cols-2 gap-4">
+                                <div>
+                                    <label class="block text-sm font-medium text-gray-500 mb-1">Prepared By</label>
+                                    <p class="text-gray-900 text-sm sm:text-base break-words">{{ $building->prepared_by ?? 'N/A' }}</p>
+                                </div>
+                                <div>
+                                    <label class="block text-sm font-medium text-gray-500 mb-1">Position/Title</label>
+                                    <p class="text-gray-900 text-sm sm:text-base break-words">{{ $building->preparer_position ?? 'N/A' }}</p>
+                                </div>
+                            </div>
+                            <div class="grid grid-cols-1 sm:grid-cols-2 gap-4">
+                                <div>
+                                    <label class="block text-sm font-medium text-gray-500 mb-1">Certified Correct By</label>
+                                    <p class="text-gray-900 text-sm sm:text-base break-words">{{ $building->certified_by ?? 'N/A' }}</p>
+                                </div>
+                                <div>
+                                    <label class="block text-sm font-medium text-gray-500 mb-1">Department/Agency Head</label>
+                                    <p class="text-gray-900 text-sm sm:text-base break-words">{{ $building->certifier_position ?? 'N/A' }}</p>
+                                </div>
                             </div>
                         </div>
                     </div>
@@ -239,6 +371,33 @@
                             <span class="inline-flex items-center px-2 py-1 rounded-full text-xs font-medium bg-green-100 text-green-800 flex-shrink-0">
                                 Active
                             </span>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Building Details Overview -->
+                <div class="bg-white rounded-lg shadow-lg p-4 sm:p-6">
+                    <h2 class="text-lg sm:text-xl font-semibold text-gray-900 mb-4">Details Overview</h2>
+                    <div class="space-y-3 text-sm">
+                        <div class="flex justify-between items-start gap-2">
+                            <span class="text-gray-600 flex-shrink-0">Classification:</span>
+                            <span class="text-gray-900 text-right break-words">{{ $building->classification ?? 'N/A' }}</span>
+                        </div>
+                        <div class="flex justify-between items-start gap-2">
+                            <span class="text-gray-600 flex-shrink-0">Physical Condition:</span>
+                            <span class="text-gray-900 text-right break-words">{{ $building->physical_condition ?? 'N/A' }}</span>
+                        </div>
+                        <div class="flex justify-between items-start gap-2">
+                            <span class="text-gray-600 flex-shrink-0">Date Acquired:</span>
+                            <span class="text-gray-900 text-right break-words">{{ $building->acquisition_date ? $building->acquisition_date->format('M j, Y') : 'N/A' }}</span>
+                        </div>
+                        <div class="flex justify-between items-start gap-2">
+                            <span class="text-gray-600 flex-shrink-0">Specific Use:</span>
+                            <span class="text-gray-900 text-right break-words">{{ $building->specific_use ?? 'N/A' }}</span>
+                        </div>
+                        <div class="flex justify-between items-start gap-2">
+                            <span class="text-gray-600 flex-shrink-0">Estimated Occupants:</span>
+                            <span class="text-gray-900 text-right break-words">{{ $building->estimated_occupants ?? 'N/A' }}</span>
                         </div>
                     </div>
                 </div>

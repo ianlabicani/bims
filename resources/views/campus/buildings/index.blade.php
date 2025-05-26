@@ -37,7 +37,7 @@
                             <div class="absolute top-2 right-2">
                                 <span
                                     class="inline-flex px-2 py-1 text-xs font-semibold rounded-full
-                                                                                                                                                {{ $building->status === 'active' ? 'bg-green-100 text-green-800' : 'bg-gray-100 text-gray-800' }}">
+                                                                                                                                                                        {{ $building->status === 'active' ? 'bg-green-100 text-green-800' : 'bg-gray-100 text-gray-800' }}">
                                     {{ ucfirst($building->status ?? 'active') }}
                                 </span>
                             </div>
@@ -193,31 +193,31 @@
             // Custom CSS for building markers and styling
             var style = document.createElement('style');
             style.textContent = `
-                                        .building-marker {
-                                            background: transparent;
-                                            border: none;
-                                        }
+                        .building-marker {
+                            background: transparent;
+                            border: none;
+                        }
 
-                                        .leaflet-container {
-                                            background: #f0f0f0 !important;
-                                            border-radius: 0;
-                                        }
+                        .leaflet-container {
+                            background: #f0f0f0 !important;
+                            border-radius: 0;
+                        }
 
-                                        .line-clamp-2 {
-                                            display: -webkit-box;
-                                            -webkit-line-clamp: 2;
-                                            -webkit-box-orient: vertical;
-                                            overflow: hidden;
-                                        }
+                        .line-clamp-2 {
+                            display: -webkit-box;
+                            -webkit-line-clamp: 2;
+                            -webkit-box-orient: vertical;
+                            overflow: hidden;
+                        }
 
-                                        .leaflet-popup-content-wrapper {
-                                            border-radius: 8px;
-                                        }
+                        .leaflet-popup-content-wrapper {
+                            border-radius: 8px;
+                        }
 
-                                        .leaflet-popup-tip {
-                                            background: white;
-                                        }
-                                    `;
+                        .leaflet-popup-tip {
+                            background: white;
+                        }
+                        `;
             document.head.appendChild(style);
         </script>
     @endpush
