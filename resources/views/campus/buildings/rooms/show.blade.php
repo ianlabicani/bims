@@ -52,7 +52,7 @@
                                 <i class="fas fa-edit mr-2 text-xs sm:text-sm"></i>
                                 <span class="truncate">Edit Room</span>
                             </a>
-                            <a href="{{ route('campus.buildings.items.create') }}?room_id={{ $room->id }}"
+                            <a href="{{ route('campus.buildings.items.create', ["building" => $room->building]) }}"
                                 class="flex-1 inline-flex items-center justify-center px-3 py-2.5 sm:px-4 sm:py-3 bg-green-600 text-white rounded-lg hover:bg-green-700 transition-colors duration-200 text-sm font-medium min-h-[44px]">
                                 <i class="fas fa-plus mr-2 text-xs sm:text-sm"></i>
                                 <span class="truncate">Add Item</span>
@@ -129,7 +129,7 @@
                 <div class="bg-white rounded-lg shadow-lg p-4 sm:p-6">
                     <div class="flex flex-col sm:flex-row sm:items-center sm:justify-between mb-4 gap-2">
                         <h2 class="text-lg sm:text-xl lg:text-2xl font-semibold text-gray-900">Items in this Room</h2>
-                        <a href="{{ route('campus.buildings.items.create') }}?room_id={{ $room->id }}"
+                        <a href="{{ route('campus.buildings.items.create', ["building" => $room->building, "room" => $room]) }}"
                             class="inline-flex items-center justify-center px-3 py-2 sm:px-4 sm:py-2 bg-green-600 text-white rounded-lg hover:bg-green-700 transition-colors duration-200 text-sm font-medium min-h-[44px]">
                             <i class="fas fa-plus mr-2 text-xs sm:text-sm"></i>
                             <span class="truncate">Add Item</span>
@@ -194,7 +194,7 @@
                             </div>
                             <h3 class="text-lg font-medium text-gray-900 mb-2">No items found</h3>
                             <p class="text-gray-500 mb-4 text-sm sm:text-base">This room doesn't have any items yet.</p>
-                            <a href="{{ route('campus.buildings.items.create') }}?room_id={{ $room->id }}"
+                            <a href="{{ route('campus.buildings.items.create', ["building" => $room->building, "room" => $room]) }}"
                                 class="inline-flex items-center justify-center px-4 py-2 bg-blue-600 text-white rounded-lg hover:bg-blue-700 transition-colors duration-200 text-sm font-medium min-h-[44px]">
                                 <i class="fas fa-plus mr-2"></i>
                                 Add First Item
@@ -215,7 +215,7 @@
                             <i class="fas fa-edit mr-2 text-xs sm:text-sm"></i>
                             <span class="truncate">Edit Room</span>
                         </a>
-                        <a href="{{ route('campus.buildings.items.create') }}?room_id={{ $room->id }}"
+                        <a href="{{ route('campus.buildings.items.create', ["building" => $room->building, "room" => $room]) }}"
                             class="w-full inline-flex items-center justify-center px-3 py-2.5 sm:px-4 sm:py-3 bg-green-600 text-white rounded-lg hover:bg-green-700 transition-colors duration-200 text-sm font-medium min-h-[44px]">
                             <i class="fas fa-plus mr-2 text-xs sm:text-sm"></i>
                             <span class="truncate">Add Item</span>
