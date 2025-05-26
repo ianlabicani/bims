@@ -256,7 +256,7 @@ class BuildingController extends Controller
                 return redirect()->back()->withInput()->with('error', 'Error updating building record: ' . $e->getMessage());
             }
 
-            return redirect()->route('campus.buildings.index')->with('success', 'Building updated successfully.');
+            return redirect()->route('campus.buildings.show', $building->id)->with('success', 'Building updated successfully.');
         } catch (\Illuminate\Validation\ValidationException $e) {
             return redirect()->back()->withErrors($e->validator)->withInput();
         } catch (\Exception $e) {
