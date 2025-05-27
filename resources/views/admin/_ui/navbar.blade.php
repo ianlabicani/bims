@@ -1,15 +1,5 @@
 <nav class="bg-white border-b border-gray-200 shadow-sm">
-    <div class="max-w-7xl            </div>
-        </div>
-    </div>
-</nav>
-
-<script>
-function toggleMobileMenu() {
-    const menu = document.getElementById('mobile-menu');
-    menu.classList.toggle('hidden');
-}
-</script>auto px-4 sm:px-6 lg:px-8">
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         <div class="flex justify-between h-16">
             <div class="flex items-center">
                 <a class="text-xl font-bold text-gray-800 hover:text-gray-600" href="{{ route('guest.welcome') }}">
@@ -35,6 +25,25 @@ function toggleMobileMenu() {
                     <i class="fas fa-tachometer-alt mr-1"></i> Dashboard
                 </a>
 
+                <!-- Buildings Dropdown -->
+                <div class="relative group">
+                    <button
+                        class="px-3 py-2 text-sm font-medium text-gray-700 hover:text-blue-600 focus:outline-none {{ request()->is('admin/buildings*') ? 'text-blue-600' : '' }}">
+                        <i class="fas fa-building mr-1"></i> Buildings
+                        <i class="fas fa-chevron-down ml-1 text-xs"></i>
+                    </button>
+                    <div
+                        class="absolute right-0 mt-2 w-48 bg-white rounded-md shadow-lg border border-gray-200 opacity-0 invisible group-hover:opacity-100 group-hover:visible transition-all duration-200 z-50">
+                        <div class="py-1">
+                            <a class="flex items-center px-4 py-2 text-sm text-gray-700 hover:bg-gray-100"
+                                href="{{ route('admin.buildings.index') }}">
+                                <i class="fas fa-list mr-2"></i> View All Buildings
+                            </a>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Users Dropdown -->
                 <div class="relative group">
                     <button
                         class="px-3 py-2 text-sm font-medium text-gray-700 hover:text-blue-600 focus:outline-none {{ request()->is('admin/users*') ? 'text-blue-600' : '' }}">
@@ -49,13 +58,14 @@ function toggleMobileMenu() {
                                 <i class="fas fa-list mr-2"></i> View All Users
                             </a>
                             <a class="flex items-center px-4 py-2 text-sm text-green-600 hover:bg-gray-100"
-                                href="{{ url('admin.users.create') }}">
+                                href="{{ route('admin.users.create') }}">
                                 <i class="fas fa-plus-circle mr-2"></i> Add User
                             </a>
                         </div>
                     </div>
                 </div>
 
+                <!-- Account Dropdown -->
                 <div class="relative group">
                     <button class="px-3 py-2 text-sm font-medium text-gray-700 hover:text-blue-600 focus:outline-none">
                         <i class="fas fa-user mr-1"></i> Account
@@ -84,14 +94,23 @@ function toggleMobileMenu() {
                     href="{{ route('admin.dashboard') }}">
                     <i class="fas fa-tachometer-alt mr-2"></i> Dashboard
                 </a>
+
+                <!-- Building links for mobile -->
+                <a class="block px-3 py-2 text-base font-medium text-gray-700 hover:text-blue-600 hover:bg-gray-50"
+                    href="{{ route('admin.buildings.index') }}">
+                    <i class="fas fa-building mr-2"></i> View All Buildings
+                </a>
+                <!-- User links for mobile -->
                 <a class="block px-3 py-2 text-base font-medium text-gray-700 hover:text-blue-600 hover:bg-gray-50"
                     href="{{ route('admin.users.index') }}">
-                    <i class="fas fa-list mr-2"></i> View All Users
+                    <i class="fas fa-users mr-2"></i> View All Users
                 </a>
                 <a class="block px-3 py-2 text-base font-medium text-green-600 hover:bg-gray-50"
-                    href="{{ url('admin.users.create') }}">
+                    href="{{ route('admin.users.create') }}">
                     <i class="fas fa-plus-circle mr-2"></i> Add User
                 </a>
+
+                <!-- Logout for mobile -->
                 <form method="POST" action="{{ route('logout') }}" class="block">
                     @csrf
                     <button type="submit"
@@ -101,8 +120,12 @@ function toggleMobileMenu() {
                 </form>
             </div>
         </div>
-        </li>
-        </ul>
-    </div>
     </div>
 </nav>
+
+<script>
+    function toggleMobileMenu() {
+        const menu = document.getElementById('mobile-menu');
+        menu.classList.toggle('hidden');
+    }
+</script>
