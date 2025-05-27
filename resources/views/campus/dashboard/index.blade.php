@@ -1,5 +1,25 @@
 @extends('campus.shell')
 
+@push('styles')
+    <style>
+        .leaflet-container {
+            background: #f0f0f0 !important;
+        }
+
+        .building-marker {
+            background: transparent;
+            border: none;
+        }
+
+        .line-clamp-2 {
+            display: -webkit-box;
+            -webkit-line-clamp: 2;
+            -webkit-box-orient: vertical;
+            overflow: hidden;
+        }
+    </style>
+@endpush
+
 @section('campus-content')
     <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8">
         <div class="bg-white rounded-lg shadow-lg p-6 mb-8">
@@ -87,7 +107,7 @@
                                     <h3 class="text-xl font-semibold text-gray-900 truncate">{{ $building->name }}</h3>
                                     <span
                                         class="inline-flex px-2 py-1 text-xs font-semibold rounded-full
-                                                                                                                                                    {{ $building->status === 'active' ? 'bg-green-100 text-green-800' : 'bg-gray-100 text-gray-800' }}">
+                                                                                                                                                                                                                                                                {{ $building->status === 'active' ? 'bg-green-100 text-green-800' : 'bg-gray-100 text-gray-800' }}">
                                         {{ ucfirst($building->status ?? 'active') }}
                                     </span>
                                 </div>
@@ -167,13 +187,31 @@
             // Initialize overview map
             var overviewMap = L.map('overview-map').setView([17.6364, 121.6783], 13);
 
-            // Add tile layer to overview map
-            var overviewTileLayer = L.tileLayer('https://api.maptiler.com/maps/streets/{z}/{x}/{y}.png?key=bZpmItn2cuWjeIdpgbH5', {
+            // Add base maps
+            var streets = L.tileLayer('https://api.maptiler.com/maps/streets/{z}/{x}/{y}.png?key=bZpmItn2cuWjeIdpgbH5', {
                 attribution: '&copy; <a href="https://www.maptiler.com/copyright/">MapTiler</a>',
                 tileSize: 512,
                 zoomOffset: -1,
                 minZoom: 1
-            }).addTo(overviewMap);
+            });
+
+            var satellite = L.tileLayer('https://api.maptiler.com/maps/satellite/{z}/{x}/{y}.jpg?key=bZpmItn2cuWjeIdpgbH5', {
+                attribution: '&copy; <a href="https://www.maptiler.com/copyright/">MapTiler</a>',
+                tileSize: 512,
+                zoomOffset: -1,
+                minZoom: 1
+            });
+
+            // Add streets as default base layer
+            streets.addTo(overviewMap);
+
+            // Setup layer control
+            var baseMaps = {
+                "Streets": streets,
+                "Satellite": satellite
+            };
+
+            L.control.layers(baseMaps, null, { position: 'topright' }).addTo(overviewMap);
 
             // Create a group for all building markers
             var markersGroup = L.layerGroup().addTo(overviewMap);
@@ -215,13 +253,14 @@
                             touchZoom: false
                         }).setView([lat, lng], 16);
 
-                        // Add tile layer to building map
-                        L.tileLayer('https://api.maptiler.com/maps/streets/{z}/{x}/{y}.png?key=bZpmItn2cuWjeIdpgbH5', {
+                        // Add satellite tile layer to building map
+                        L.tileLayer('https://api.maptiler.com/maps/satellite/{z}/{x}/{y}.jpg?key=bZpmItn2cuWjeIdpgbH5', {
                             attribution: '',
                             tileSize: 512,
                             zoomOffset: -1,
                             minZoom: 1
                         }).addTo(buildingMap);
+
 
                         // Add building marker with custom icon
                         var buildingIcon = L.divIcon({
@@ -249,27 +288,6 @@
             if (buildings.length > 0 && bounds.isValid()) {
                 overviewMap.fitBounds(bounds, { padding: [20, 20] });
             }
-
-            // Custom CSS for building markers
-            var style = document.createElement('style');
-            style.textContent = `
-                                                                                        .building-marker {
-                                                                                            background: transparent;
-                                                                                            border: none;
-                                                                                        }
-
-                                                                                        .leaflet-container {
-                                                                                            background: #f0f0f0 !important;
-                                                                                        }
-
-                                                                                        .line-clamp-2 {
-                                                                                            display: -webkit-box;
-                                                                                            -webkit-line-clamp: 2;
-                                                                                            -webkit-box-orient: vertical;
-                                                                                            overflow: hidden;
-                                                                                        }
-                                                                                    `;
-            document.head.appendChild(style);
         </script>
     @endpush
 @endsection
