@@ -47,8 +47,8 @@
                     <div class="text-sm text-gray-600">Total Rooms</div>
                 </div>
                 <div class="bg-white rounded-lg shadow p-4">
-                    <div class="text-3xl font-bold text-green-600">{{ $rooms->where('status', 'active')->count() ?? 0 }}</div>
-                    <div class="text-sm text-gray-600">Active Rooms</div>
+                    <div class="text-3xl font-bold text-green-600">{{ $rooms->sum(function($room) { return $room->items->count(); }) }}</div>
+                    <div class="text-sm text-gray-600">Total Items</div>
                 </div>
                 @if($building->number_of_rooms)
                     <div class="bg-white rounded-lg shadow p-4">
@@ -101,8 +101,8 @@
                                         <div class="text-xs font-medium text-gray-700">Items</div>
                                     </div>
                                     <div class="text-center py-3 bg-green-50 rounded-lg">
-                                        <div class="text-2xl font-bold text-green-600">{{ $room->items->where('status', 'active')->count() ?? 0 }}</div>
-                                        <div class="text-xs font-medium text-gray-700">Active</div>
+                                        <div class="text-2xl font-bold text-green-600">{{ $room->items->sum('quantity') ?? 0 }}</div>
+                                        <div class="text-xs font-medium text-gray-700">Units</div>
                                     </div>
                                 </div>
 
