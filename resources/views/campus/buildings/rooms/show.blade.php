@@ -45,12 +45,12 @@
                 <div class="text-xs sm:text-sm text-blue-800 mt-1">Total Items</div>
             </div>
             <div class="bg-green-50 border border-green-200 rounded-lg p-4 text-center">
-                <div class="text-2xl sm:text-3xl font-bold text-green-600">{{ $room->items->where('status', 'active')->count() }}</div>
-                <div class="text-xs sm:text-sm text-green-800 mt-1">Active Items</div>
+                <div class="text-2xl sm:text-3xl font-bold text-green-600">{{ $room->items->count() }}</div>
+                <div class="text-xs sm:text-sm text-green-800 mt-1">Room Items</div>
             </div>
             <div class="bg-purple-50 border border-purple-200 rounded-lg p-4 text-center">
-                <div class="text-2xl sm:text-3xl font-bold text-purple-600">{{ $room->items->where('status', '!=', 'active')->count() }}</div>
-                <div class="text-xs sm:text-sm text-purple-800 mt-1">Inactive</div>
+                <div class="text-2xl sm:text-3xl font-bold text-purple-600">{{ $room->items->sum('quantity') ?? 0 }}</div>
+                <div class="text-xs sm:text-sm text-purple-800 mt-1">Total Units</div>
             </div>
         </div>
 
@@ -111,14 +111,6 @@
                                 <p class="text-gray-900 text-lg font-medium">{{ $room->name }}</p>
                             </div>
                             <div>
-                                <label class="block text-sm font-medium text-gray-500 mb-1">Room Type</label>
-                                <p class="text-gray-900 text-lg font-medium">{{ $room->type ?? 'N/A' }}</p>
-                            </div>
-                            <div>
-                                <label class="block text-sm font-medium text-gray-500 mb-1">Capacity</label>
-                                <p class="text-gray-900 text-lg font-medium">{{ $room->capacity ?? 'N/A' }} persons</p>
-                            </div>
-                            <div>
                                 <label class="block text-sm font-medium text-gray-500 mb-1">Building</label>
                                 <p class="text-gray-900">
                                     <a href="{{ route('campus.buildings.show', $building) }}" class="text-blue-600 hover:text-blue-800 underline font-medium">
@@ -172,13 +164,9 @@
                                             <h3 class="text-lg font-semibold text-gray-900 break-words">{{ $item->name }}</h3>
                                             <p class="text-sm text-gray-600 mt-1">Serial: {{ $item->serial_number ?? 'N/A' }}</p>
                                         </div>
-                                        <span @class([
-                                            'inline-flex items-center px-2 py-1 rounded-full text-xs font-semibold flex-shrink-0',
-                                            'bg-green-100 text-green-800' => $item->status === 'active' || !$item->status,
-                                            'bg-yellow-100 text-yellow-800' => $item->status === 'pending',
-                                            'bg-red-100 text-red-800' => $item->status === 'deactivated',
-                                        ])>
-                                            {{ ucfirst($item->status ?? 'active') }}
+                                        <span class="inline-flex items-center px-2 py-1 rounded-full text-xs font-semibold flex-shrink-0 bg-blue-100 text-blue-800">
+                                            <i class="fas fa-check-circle mr-1"></i>
+                                            Active
                                         </span>
                                     </div>
 
@@ -232,10 +220,10 @@
                     @endif
                 </div>
 
-                <!-- STATISTICS TAB -->
+                <!-- <!-- STATISTICS TAB -->
                 <div id="content-statistics" class="tab-content space-y-6 hidden">
                     <!-- Statistics Cards -->
-                    <div class="grid grid-cols-1 md:grid-cols-3 gap-4">
+                    <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
                         <div class="bg-gradient-to-br from-blue-50 to-blue-100 rounded-lg shadow-lg p-6 border border-blue-200">
                             <div class="flex items-center justify-between mb-2">
                                 <h3 class="text-sm font-medium text-blue-600">Total Items</h3>
@@ -245,22 +233,13 @@
                             <p class="text-xs text-blue-700 mt-2">Items in this room</p>
                         </div>
 
-                        <div class="bg-gradient-to-br from-green-50 to-green-100 rounded-lg shadow-lg p-6 border border-green-200">
+                        <div class="bg-gradient-to-br from-purple-50 to-purple-100 rounded-lg shadow-lg p-6 border border-purple-200">
                             <div class="flex items-center justify-between mb-2">
-                                <h3 class="text-sm font-medium text-green-600">Active Items</h3>
-                                <i class="fas fa-check-circle text-2xl text-green-400"></i>
+                                <h3 class="text-sm font-medium text-purple-600">Total Quantity</h3>
+                                <i class="fas fa-cubes text-2xl text-purple-400"></i>
                             </div>
-                            <p class="text-3xl font-bold text-green-900">{{ $room->items->where('status', 'active')->count() }}</p>
-                            <p class="text-xs text-green-700 mt-2">Currently active</p>
-                        </div>
-
-                        <div class="bg-gradient-to-br from-red-50 to-red-100 rounded-lg shadow-lg p-6 border border-red-200">
-                            <div class="flex items-center justify-between mb-2">
-                                <h3 class="text-sm font-medium text-red-600">Inactive Items</h3>
-                                <i class="fas fa-times-circle text-2xl text-red-400"></i>
-                            </div>
-                            <p class="text-3xl font-bold text-red-900">{{ $room->items->where('status', '!=', 'active')->count() }}</p>
-                            <p class="text-xs text-red-700 mt-2">Inactive or deactivated</p>
+                            <p class="text-3xl font-bold text-purple-900">{{ $room->items->sum('quantity') ?? 0 }}</p>
+                            <p class="text-xs text-purple-700 mt-2">Units total</p>
                         </div>
                     </div>
 
@@ -294,18 +273,14 @@
                     </div>
 
                     <!-- Room Capacity -->
-                    @if($room->capacity)
+                    @if($room->items->count() > 0)
                         <div class="bg-white rounded-lg shadow-lg p-4 sm:p-6">
-                            <h2 class="text-xl font-semibold text-gray-900 mb-4">Room Capacity</h2>
+                            <h2 class="text-xl font-semibold text-gray-900 mb-4">Item Summary</h2>
                             <div class="space-y-3">
                                 <div class="flex justify-between items-center">
-                                    <span class="text-gray-600">Maximum Capacity:</span>
-                                    <span class="text-lg font-bold text-blue-600">{{ $room->capacity }} persons</span>
-                                </div>
-                                <div class="flex justify-between items-center">
-                                    <span class="text-gray-600">Items per Person:</span>
-                                    <span class="text-lg font-bold text-green-600">
-                                        {{ $room->items->count() > 0 ? number_format($room->items->count() / $room->capacity, 2) : 0 }}
+                                    <span class="text-gray-600">Average Cost per Item:</span>
+                                    <span class="text-lg font-bold text-purple-600">
+                                        ₱{{ number_format($room->items->count() > 0 ? $room->items->sum('acquisition_cost') / $room->items->count() : 0, 2) }}
                                     </span>
                                 </div>
                             </div>
@@ -343,20 +318,16 @@
                     <h3 class="text-lg font-semibold text-gray-900 mb-4">Room Information</h3>
                     <div class="space-y-3 text-sm">
                         <div class="flex justify-between items-start gap-2">
-                            <span class="text-gray-600">Type:</span>
-                            <span class="text-gray-900 text-right">{{ $room->type ?? 'N/A' }}</span>
-                        </div>
-                        <div class="flex justify-between items-start gap-2">
-                            <span class="text-gray-600">Capacity:</span>
-                            <span class="text-gray-900 text-right">{{ $room->capacity ?? 'N/A' }} persons</span>
-                        </div>
-                        <div class="flex justify-between items-start gap-2">
                             <span class="text-gray-600">Building:</span>
                             <span class="text-gray-900 text-right">{{ $building->name }}</span>
                         </div>
                         <div class="flex justify-between items-start gap-2">
                             <span class="text-gray-600">Created:</span>
                             <span class="text-gray-900 text-right">{{ $room->created_at->format('M d, Y') }}</span>
+                        </div>
+                        <div class="flex justify-between items-start gap-2">
+                            <span class="text-gray-600">Last Updated:</span>
+                            <span class="text-gray-900 text-right">{{ $room->updated_at->format('M d, Y') }}</span>
                         </div>
                         <div class="pt-3 border-t border-gray-200">
                             <div class="flex justify-between items-start gap-2">
@@ -376,12 +347,12 @@
                             <span class="text-lg font-bold text-blue-600">{{ $room->items->count() }}</span>
                         </div>
                         <div class="flex justify-between">
-                            <span class="text-gray-600">Active Items:</span>
-                            <span class="text-lg font-bold text-green-600">{{ $room->items->where('status', 'active')->count() }}</span>
+                            <span class="text-gray-600">Total Quantity:</span>
+                            <span class="text-lg font-bold text-green-600">{{ $room->items->sum('quantity') ?? 0 }}</span>
                         </div>
                         <div class="flex justify-between">
-                            <span class="text-gray-600">Inactive Items:</span>
-                            <span class="text-lg font-bold text-red-600">{{ $room->items->where('status', '!=', 'active')->count() }}</span>
+                            <span class="text-gray-600">Total Cost:</span>
+                            <span class="text-lg font-bold text-purple-600">₱{{ number_format($room->items->sum('acquisition_cost'), 2) }}</span>
                         </div>
                     </div>
                 </div>
