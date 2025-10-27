@@ -62,6 +62,11 @@ class UserSeeder extends Seeder
                 'role' => 'Campus',
             ],
             [
+                'name' => 'Solana Admin',
+                'email' => 'solana@csu.edu.ph',
+                'role' => 'Campus',
+            ],
+            [
                 'name' => 'Regular User',
                 'email' => 'user@csu.edu.ph',
                 'role' => 'User',
@@ -72,7 +77,7 @@ class UserSeeder extends Seeder
             $createdUser = User::create([
                 'name' => $user['name'],
                 'email' => $user['email'],
-                'password' => Hash::make('11111111')
+                'password' => Hash::make('11111111'),
             ]);
 
             $createdUser->roles()->attach(
