@@ -2,8 +2,8 @@
 
 namespace Database\Seeders;
 
-use Illuminate\Database\Seeder;
 use App\Models\Campus;
+use Illuminate\Database\Seeder;
 
 class CampusSeeder extends Seeder
 {
@@ -52,6 +52,11 @@ class CampusSeeder extends Seeder
                 'name' => 'Sanchez Mira',
                 'location' => json_encode(['lat' => '18.5065', 'long' => '121.2486']),
                 'description' => 'Focuses on agricultural and industrial technology programs.',
+            ],
+            [
+                'name' => 'Solana',
+                'location' => json_encode(['lat' => '18.0000', 'long' => '121.6000']),
+                'description' => 'Branch campus serving southern Cagayan.',
             ],
         ];
 

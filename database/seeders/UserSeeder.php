@@ -42,7 +42,7 @@ class UserSeeder extends Seeder
                 'role' => 'Campus',
             ],
             [
-                'name' => 'Lal-lo Admin',
+                'name' => 'Lallo Admin',
                 'email' => 'lallo@csu.edu.ph',
                 'role' => 'Campus',
             ],
@@ -57,7 +57,7 @@ class UserSeeder extends Seeder
                 'role' => 'Campus',
             ],
             [
-                'name' => 'Sanchez-Mira Admin',
+                'name' => 'Sanchez Mira Admin',
                 'email' => 'sanchezmira@csu.edu.ph',
                 'role' => 'Campus',
             ],
@@ -85,9 +85,22 @@ class UserSeeder extends Seeder
             );
 
             if ($user['role'] === 'Campus') {
-                // Match by campus name found in user name (e.g., "Andrews Admin" => "Andrews")
-                $campusName = explode(' ', $user['name'])[0];
-                $campus = Campus::where('name', 'like', "%$campusName%")->first();
+                // Map user names to campus names
+                $campusMapping = [
+                    'Andrews' => 'Andrews',
+                    'Aparri' => 'Aparri',
+                    'Carig' => 'Carig',
+                    'Gonzaga' => 'Gonzaga',
+                    'Lallo' => 'Lallo',
+                    'Lasam' => 'Lasam',
+                    'Piat' => 'Piat',
+                    'Sanchez' => 'Sanchez Mira',
+                    'Solana' => 'Solana',
+                ];
+
+                $userNameFirst = explode(' ', $user['name'])[0];
+                $campusName = $campusMapping[$userNameFirst] ?? $userNameFirst;
+                $campus = Campus::where('name', $campusName)->first();
 
                 if ($campus) {
                     $createdUser->update(['campus_id' => $campus->id]);
