@@ -117,10 +117,6 @@
                                     class="flex-1 inline-flex items-center justify-center bg-yellow-50 hover:bg-yellow-100 text-yellow-700 py-2 px-3 rounded-lg text-sm font-medium transition-colors duration-200 border border-yellow-200">
                                     <i class="fas fa-edit mr-1"></i>Edit
                                 </a>
-                                <button onclick="deleteBuilding({{ $building->id }})"
-                                    class="inline-flex items-center justify-center bg-red-50 hover:bg-red-100 text-red-700 py-2 px-3 rounded-lg text-sm font-medium transition-colors duration-200 border border-red-200">
-                                    <i class="fas fa-trash-alt"></i>
-                                </button>
                             </div>
                         </div>
                     </div>
@@ -204,31 +200,6 @@
                     }
                 }
             });
-
-            // Delete building function
-            function deleteBuilding(buildingId) {
-                if (confirm('Are you sure you want to delete this building? This action cannot be undone.')) {
-                    fetch(`/campus/buildings/${buildingId}`, {
-                        method: 'DELETE',
-                        headers: {
-                            'X-CSRF-TOKEN': document.querySelector('meta[name="csrf-token"]').content,
-                            'Accept': 'application/json'
-                        }
-                    })
-                    .then(response => response.json())
-                    .then(data => {
-                        if (data.success) {
-                            location.reload();
-                        } else {
-                            alert('Error deleting building: ' + data.message);
-                        }
-                    })
-                    .catch(error => {
-                        console.error('Error:', error);
-                        alert('Error deleting building');
-                    });
-                }
-            }
 
             // Custom CSS for building markers and styling
             var style = document.createElement('style');
