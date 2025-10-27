@@ -18,8 +18,7 @@ class ItemController extends Controller
 
     public function create(Building $building)
     {
-
-        return view('campus.buildings.items.create', compact('building'));
+        return view('campus.buildings.items.form', compact('building'));
     }
 
     public function store(Request $request, Building $building)
@@ -49,7 +48,7 @@ class ItemController extends Controller
 
     public function edit(Building $building, Item $item)
     {
-        return view('campus.buildings.items.edit', compact('building', 'item'));
+        return view('campus.buildings.items.form', compact('building', 'item'));
     }
 
     public function update(Request $request, Building $building, Item $item)
