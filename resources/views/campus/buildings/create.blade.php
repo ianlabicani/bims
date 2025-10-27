@@ -1,6 +1,18 @@
 @extends('campus.shell')
 
 @section('campus-content')
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/leaflet/1.9.4/leaflet.min.css" />
+    <style>
+        #map {
+            height: 400px;
+            width: 100%;
+            border-radius: 0.5rem;
+            border: 1px solid #d1d5db;
+        }
+        .leaflet-container {
+            background: #f3f4f6;
+        }
+    </style>
     <div class="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 py-8">
         <div class="bg-white rounded-lg shadow-lg p-6">
             <div class="mb-6">
@@ -347,11 +359,20 @@
                 <!-- Location & Measurements -->
                 <div class="bg-gray-50 rounded-lg p-6">
                     <h2 class="text-xl font-semibold text-gray-900 mb-4">Location & Measurements</h2>
+
+                    <!-- Interactive Map -->
+                    <div class="mb-6">
+                        <label class="block text-sm font-medium text-gray-700 mb-2">Click on the map to set location</label>
+                        <div id="map"></div>
+                        <p class="text-xs text-gray-500 mt-2">Click anywhere on the map to select the building location. The coordinates will be automatically filled below.</p>
+                    </div>
+
                     <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
                         <div>
                             <label for="latitude" class="block text-sm font-medium text-gray-700 mb-2">Latitude</label>
                             <input type="text" name="latitude" id="latitude"
-                                class="w-full px-3 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent">
+                                class="w-full px-3 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent"
+                                placeholder="Click on map or enter manually">
                             @error('latitude')
                                 <p class="text-red-500 text-sm mt-1">{{ $message }}</p>
                             @enderror
@@ -360,7 +381,8 @@
                         <div>
                             <label for="longitude" class="block text-sm font-medium text-gray-700 mb-2">Longitude</label>
                             <input type="text" name="longitude" id="longitude"
-                                class="w-full px-3 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent">
+                                class="w-full px-3 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent"
+                                placeholder="Click on map or enter manually">
                             @error('longitude')
                                 <p class="text-red-500 text-sm mt-1">{{ $message }}</p>
                             @enderror
@@ -556,4 +578,81 @@
             </form>
         </div>
     </div>
+
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/leaflet/1.9.4/leaflet.min.js"></script>
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            // Initialize map centered on Philippines
+            const map = L.map('map').setView([12.8797, 121.7740], 6);
+
+            // Add tile layer
+            L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
+                attribution: '&copy; OpenStreetMap contributors',
+                maxZoom: 19
+            }).addTo(map);
+
+            let marker;
+
+            // Handle map clicks
+            map.on('click', function(e) {
+                const lat = e.latlng.lat.toFixed(6);
+                const lng = e.latlng.lng.toFixed(6);
+
+                // Update input fields
+                document.getElementById('latitude').value = lat;
+                document.getElementById('longitude').value = lng;
+
+                // Remove existing marker
+                if (marker) {
+                    map.removeLayer(marker);
+                }
+
+                // Add new marker
+                marker = L.marker([lat, lng]).addTo(map)
+                    .bindPopup(`<b>Selected Location</b><br>Latitude: ${lat}<br>Longitude: ${lng}`)
+                    .openPopup();
+
+                // Center map on marker
+                map.setView([lat, lng], map.getZoom());
+            });
+
+            // Load existing coordinates if present
+            const latInput = document.getElementById('latitude').value;
+            const lngInput = document.getElementById('longitude').value;
+
+            if (latInput && lngInput) {
+                const lat = parseFloat(latInput);
+                const lng = parseFloat(lngInput);
+
+                marker = L.marker([lat, lng]).addTo(map)
+                    .bindPopup(`<b>Current Location</b><br>Latitude: ${lat}<br>Longitude: ${lng}`)
+                    .openPopup();
+
+                map.setView([lat, lng], 15);
+            }
+
+            // Allow manual input to update map
+            document.getElementById('latitude').addEventListener('change', updateMapFromInputs);
+            document.getElementById('longitude').addEventListener('change', updateMapFromInputs);
+
+            function updateMapFromInputs() {
+                const lat = parseFloat(document.getElementById('latitude').value);
+                const lng = parseFloat(document.getElementById('longitude').value);
+
+                if (!isNaN(lat) && !isNaN(lng)) {
+                    // Update marker
+                    if (marker) {
+                        map.removeLayer(marker);
+                    }
+
+                    marker = L.marker([lat, lng]).addTo(map)
+                        .bindPopup(`<b>Updated Location</b><br>Latitude: ${lat}<br>Longitude: ${lng}`)
+                        .openPopup();
+
+                    // Center map
+                    map.setView([lat, lng], 15);
+                }
+            }
+        });
+    </script>
 @endsection
