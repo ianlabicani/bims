@@ -352,7 +352,7 @@
                             </div>
                         </div>
 
-                        <p class="text-sm text-gray-600 mb-6">All four certificates must be uploaded to create a building. Accepted formats: PDF, JPEG, PNG, JPG (Max 2MB each)</p>
+                        <p class="text-sm text-gray-600 mb-6">All four certificates must be uploaded to create a building. Accepted formats: PDF, JPEG, PNG, JPG (Max 5MB each)</p>
                         <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
                             <!-- CSU Certificate -->
                             <div class="border-2 border-dashed border-yellow-300 rounded-lg p-6 hover:border-yellow-500 hover:bg-yellow-50 transition-all">
@@ -435,7 +435,7 @@
                             <ul class="text-sm text-gray-700 space-y-1">
                                 <li><i class="fas fa-check text-green-600 mr-2"></i>All 4 certificates are <strong>required</strong></li>
                                 <li><i class="fas fa-check text-green-600 mr-2"></i>Accepted formats: PDF, JPEG, PNG, JPG</li>
-                                <li><i class="fas fa-check text-green-600 mr-2"></i>Maximum 2MB per file (8MB total)</li>
+                                <li><i class="fas fa-check text-green-600 mr-2"></i>Maximum 5MB per file (20MB total)</li>
                             </ul>
                         </div>
                     </div>
