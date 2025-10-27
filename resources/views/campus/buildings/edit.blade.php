@@ -33,16 +33,6 @@
                 </a>
             </div>
 
-            <!-- Progress Indicator -->
-            <div class="bg-white rounded-lg shadow p-4">
-                <div class="flex items-center justify-between mb-3">
-                    <span class="text-sm font-medium text-gray-700">Form Progress</span>
-                    <span class="text-sm font-bold text-blue-600"><span id="completedFields">0</span>/23 fields completed</span>
-                </div>
-                <div class="w-full bg-gray-200 rounded-full h-2">
-                    <div id="progressBar" class="bg-blue-600 h-2 rounded-full transition-all duration-300" style="width: 0%"></div>
-                </div>
-            </div>
         </div>
 
         <!-- Form -->
@@ -575,58 +565,6 @@
                                 <span>Save periodically to avoid losing data</span>
                             </li>
                         </ul>
-                    </div>
-
-                    <!-- Form Status -->
-                    <div class="bg-white rounded-lg shadow-lg p-6">
-                        <h3 class="font-semibold text-gray-900 mb-4">Form Status</h3>
-                        <div class="space-y-2 text-sm">
-                            <div class="flex items-center justify-between p-2 bg-gray-50 rounded">
-                                <span class="text-gray-600">Basic Information</span>
-                                <i class="fas fa-check text-green-600"></i>
-                            </div>
-                            <div class="flex items-center justify-between p-2 bg-gray-50 rounded">
-                                <span class="text-gray-600">Infrastructure</span>
-                                <i class="fas fa-check text-green-600"></i>
-                            </div>
-                            <div class="flex items-center justify-between p-2 bg-gray-50 rounded">
-                                <span class="text-gray-600">Location</span>
-                                <i class="fas fa-clock text-yellow-600"></i>
-                            </div>
-                            <div class="flex items-center justify-between p-2 bg-gray-50 rounded">
-                                <span class="text-gray-600">Acquisition</span>
-                                <i class="fas fa-clock text-yellow-600"></i>
-                            </div>
-                        </div>
-                    </div>
-
-                    <!-- Quick Stats -->
-                    <div class="bg-gradient-to-br from-blue-50 to-indigo-50 rounded-lg shadow-lg p-6 border border-blue-200">
-                        <h3 class="font-semibold text-gray-900 mb-4">Building Summary</h3>
-                        @if(isset($building))
-                            <div class="space-y-3 text-sm">
-                                <div class="flex justify-between">
-                                    <span class="text-gray-600">Rooms:</span>
-                                    <span class="font-bold text-blue-600">{{ $building->number_of_rooms ?? 0 }}</span>
-                                </div>
-                                <div class="flex justify-between">
-                                    <span class="text-gray-600">Items:</span>
-                                    <span class="font-bold text-green-600">{{ $building->items_count ?? 0 }}</span>
-                                </div>
-                                <div class="flex justify-between">
-                                    <span class="text-gray-600">Floor Area:</span>
-                                    <span class="font-bold text-purple-600">{{ $building->floor_area ?? 'N/A' }}</span>
-                                </div>
-                                <div class="pt-3 border-t border-blue-200 mt-3">
-                                    <div class="flex justify-between">
-                                        <span class="text-gray-600">Created:</span>
-                                        <span class="text-xs text-gray-700">{{ $building->created_at->format('M d, Y') }}</span>
-                                    </div>
-                                </div>
-                            </div>
-                        @else
-                            <p class="text-sm text-gray-600">Fill in the form to see building summary</p>
-                        @endif
                     </div>
                 </div>
             </div>
