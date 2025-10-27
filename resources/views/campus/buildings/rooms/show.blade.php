@@ -172,12 +172,12 @@
 
                                         <!-- Item Actions -->
                                         <div class="flex gap-2 pt-2 border-t border-gray-200">
-                                            <a href="{{ route('campus.buildings.items.show', $item) }}"
+                                            <a href="{{ route('campus.buildings.items.show', [$building, $item]) }}"
                                                 class="flex-1 inline-flex items-center justify-center px-2 py-1.5 bg-blue-100 text-blue-700 rounded text-xs font-medium hover:bg-blue-200 transition-colors">
                                                 <i class="fas fa-eye mr-1"></i>
                                                 View
                                             </a>
-                                            <a href="{{ route('campus.buildings.items.edit', $item) }}"
+                                            <a href="{{ route('campus.buildings.items.edit', [$building, $item]) }}"
                                                 class="flex-1 inline-flex items-center justify-center px-2 py-1.5 bg-indigo-100 text-indigo-700 rounded text-xs font-medium hover:bg-indigo-200 transition-colors">
                                                 <i class="fas fa-edit mr-1"></i>
                                                 Edit

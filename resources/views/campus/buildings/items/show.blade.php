@@ -5,7 +5,7 @@
         <!-- Header -->
         <div class="mb-8">
             <nav class="flex items-center space-x-2 text-sm text-gray-500 mb-4">
-                <a href="{{ route('campus.dashboard.index') }}" class="hover:text-blue-600">Dashboard</a>
+                <a href="{{ route('campus.dashboard') }}" class="hover:text-blue-600">Dashboard</a>
                 <span>/</span>
                 <a href="{{ route('campus.buildings.show', $item->building) }}"
                     class="hover:text-blue-600">{{ $item->building->name ?? 'Building' }}</a>

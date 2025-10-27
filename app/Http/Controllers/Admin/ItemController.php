@@ -11,7 +11,7 @@ class ItemController extends Controller
 {
     public function index(Building $building)
     {
-        $items = $building->items()->get();
+        $items = $building->items()->with('room')->paginate(15);
 
         return view('admin.buildings.items.index', compact('items', 'building'));
     }

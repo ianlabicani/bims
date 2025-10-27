@@ -87,7 +87,7 @@
                                     <td class="px-6 py-4 whitespace-nowrap">
                                         <div class="text-sm text-gray-900">
                                             @if($item->room)
-                                                <a href="{{ route('campus.buildings.rooms.show', $item->room) }}"
+                                                <a href="{{ route('campus.buildings.rooms.show', [$building, $item->room]) }}"
                                                     class="text-blue-600 hover:text-blue-800 underline">
                                                     {{ $item->room->name }}
                                                 </a>

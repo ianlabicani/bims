@@ -23,6 +23,11 @@ class Item extends Model
         'location',
     ];
 
+    protected $casts = [
+        'acquired_at' => 'datetime',
+        'inventoried_at' => 'datetime',
+    ];
+
     public function building()
     {
         return $this->belongsTo(Building::class);

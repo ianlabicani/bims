@@ -11,7 +11,7 @@ class RoomController extends Controller
 {
     public function index(Building $building)
     {
-        $rooms = $building->rooms()->with('items')->get();
+        $rooms = $building->rooms()->with('items')->paginate(15);
         return view('campus.buildings.rooms.index', compact('rooms', 'building'));
     }
 

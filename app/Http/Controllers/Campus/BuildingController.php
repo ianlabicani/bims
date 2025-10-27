@@ -4,7 +4,6 @@ namespace App\Http\Controllers\Campus;
 
 use App\Http\Controllers\Controller;
 use App\Models\Building;
-use App\Models\Room;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Storage;
 
@@ -13,6 +12,7 @@ class BuildingController extends Controller
     public function index(Request $request)
     {
         $buildings = $request->user()->campus->buildings()->withCount(['rooms', 'items'])->get();
+
         return view('campus.buildings.index', compact('buildings'));
     }
 
@@ -77,7 +77,7 @@ class BuildingController extends Controller
         // Step 2: Get the campus of the authenticated user
         $campus = $request->user()->campus;
 
-        if (!$campus) {
+        if (! $campus) {
             return redirect()->route('campus.dashboard')->with('error', 'You do not have a campus assigned.');
         }
 
@@ -192,7 +192,7 @@ class BuildingController extends Controller
                         : explode(',', $request->improvements);
                 }
             } catch (\Exception $e) {
-                return redirect()->back()->withInput()->with('error', 'Error processing improvements: ' . $e->getMessage());
+                return redirect()->back()->withInput()->with('error', 'Error processing improvements: '.$e->getMessage());
             }
 
             try {
@@ -202,7 +202,7 @@ class BuildingController extends Controller
                         : explode(',', $request->existing_utilities);
                 }
             } catch (\Exception $e) {
-                return redirect()->back()->withInput()->with('error', 'Error processing existing utilities: ' . $e->getMessage());
+                return redirect()->back()->withInput()->with('error', 'Error processing existing utilities: '.$e->getMessage());
             }
 
             // Handle file uploads and store them
@@ -214,7 +214,7 @@ class BuildingController extends Controller
                     $validated['CSU_cert'] = $request->file('CSU_cert')->store('certificates');
                 }
             } catch (\Exception $e) {
-                return redirect()->back()->withInput()->with('error', 'Error uploading CSU certificate: ' . $e->getMessage());
+                return redirect()->back()->withInput()->with('error', 'Error uploading CSU certificate: '.$e->getMessage());
             }
 
             try {
@@ -225,7 +225,7 @@ class BuildingController extends Controller
                     $validated['FIRE_cert'] = $request->file('FIRE_cert')->store('certificates');
                 }
             } catch (\Exception $e) {
-                return redirect()->back()->withInput()->with('error', 'Error uploading FIRE certificate: ' . $e->getMessage());
+                return redirect()->back()->withInput()->with('error', 'Error uploading FIRE certificate: '.$e->getMessage());
             }
 
             try {
@@ -236,7 +236,7 @@ class BuildingController extends Controller
                     $validated['OCCUPANCY_cert'] = $request->file('OCCUPANCY_cert')->store('certificates');
                 }
             } catch (\Exception $e) {
-                return redirect()->back()->withInput()->with('error', 'Error uploading OCCUPANCY certificate: ' . $e->getMessage());
+                return redirect()->back()->withInput()->with('error', 'Error uploading OCCUPANCY certificate: '.$e->getMessage());
             }
 
             try {
@@ -247,21 +247,42 @@ class BuildingController extends Controller
                     $validated['LGU_cert'] = $request->file('LGU_cert')->store('certificates');
                 }
             } catch (\Exception $e) {
-                return redirect()->back()->withInput()->with('error', 'Error uploading LGU certificate: ' . $e->getMessage());
+                return redirect()->back()->withInput()->with('error', 'Error uploading LGU certificate: '.$e->getMessage());
             }
 
             try {
                 $building->update($validated);
             } catch (\Exception $e) {
-                return redirect()->back()->withInput()->with('error', 'Error updating building record: ' . $e->getMessage());
+                return redirect()->back()->withInput()->with('error', 'Error updating building record: '.$e->getMessage());
             }
 
             return redirect()->route('campus.buildings.show', $building->id)->with('success', 'Building updated successfully.');
         } catch (\Illuminate\Validation\ValidationException $e) {
             return redirect()->back()->withErrors($e->validator)->withInput();
         } catch (\Exception $e) {
-            return redirect()->back()->withInput()->with('error', 'An error occurred: ' . $e->getMessage());
+            return redirect()->back()->withInput()->with('error', 'An error occurred: '.$e->getMessage());
         }
     }
 
+    public function destroy(Building $building)
+    {
+        // Delete all associated certificate files
+        $certificates = ['CSU_cert', 'FIRE_cert', 'OCCUPANCY_cert', 'LGU_cert'];
+        foreach ($certificates as $cert) {
+            if ($building->$cert && Storage::exists($building->$cert)) {
+                Storage::delete($building->$cert);
+            }
+        }
+
+        // Delete all items in rooms of this building
+        $building->items()->delete();
+
+        // Delete all rooms in this building
+        $building->rooms()->delete();
+
+        // Delete the building itself
+        $building->delete();
+
+        return redirect()->route('campus.buildings.index')->with('success', 'Building deleted successfully.');
+    }
 }
