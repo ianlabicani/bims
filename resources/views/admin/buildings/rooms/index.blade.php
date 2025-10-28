@@ -2,38 +2,21 @@
 
 @section('admin-content')
     <div class="max-w-7xl mx-auto px-3 sm:px-4 lg:px-8 py-4 sm:py-8">
+        <!-- Breadcrumb Navigation -->
+        <nav class="flex items-center space-x-2 text-sm text-gray-500 mb-6 overflow-x-auto">
+            <a href="{{ route('admin.buildings.index') }}" class="hover:text-gray-700">Dashboard</a>
+            <span class="text-gray-400">/</span>
+            <a href="{{ route('admin.buildings.index') }}" class="hover:text-gray-700">Buildings</a>
+            <span class="text-gray-400">/</span>
+            <a href="{{ route('admin.buildings.show', $building) }}" class="hover:text-gray-700">{{ $building->name }}</a>
+            <span class="text-gray-400">/</span>
+            <span class="text-gray-900 font-medium whitespace-nowrap">Rooms</span>
+        </nav>
+
         <!-- Header -->
-        <div class="mb-6 sm:mb-8">
-            <a href="{{ route('admin.buildings.show', $building) }}"
-                class="inline-flex items-center px-3 py-2 sm:px-4 sm:py-2 bg-gray-600 text-white rounded-lg hover:bg-gray-700 transition-colors duration-200 mb-4 text-sm font-medium">
-                <i class="fas fa-arrow-left mr-2"></i>
-                <span class="hidden xs:inline">Back to Building</span>
-                <span class="xs:hidden">Back</span>
-            </a>
-
-            <div class="bg-white rounded-lg shadow-lg p-4 sm:p-6">
-                <div class="flex flex-col space-y-4">
-                    <div>
-                        <h1 class="text-xl sm:text-2xl lg:text-3xl font-bold text-gray-900 mb-2 break-words">Rooms in
-                            {{ $building->name }}
-                        </h1>
-                        <div class="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-2">
-                            <p class="text-sm sm:text-base text-gray-600">Manage rooms within this building</p>
-                            @if($building->number_of_rooms)
-                                <div class="flex items-center gap-2">
-                                    <span
-                                        class="inline-flex items-center px-2.5 py-0.5 rounded-full text-xs font-medium
-                                                                                        {{ $rooms->count() >= $building->number_of_rooms ? 'bg-red-100 text-red-800' : 'bg-blue-100 text-blue-800' }}">
-                                        <i class="fas fa-door-open mr-1"></i>
-                                        {{ $rooms->count() }}/{{ $building->number_of_rooms }} rooms
-                                    </span>
-                                </div>
-                            @endif
-                        </div>
-                    </div>
-
-                </div>
-            </div>
+        <div class="mb-8">
+            <h1 class="text-4xl font-bold text-gray-900">Rooms in {{ $building->name }}</h1>
+            <p class="text-gray-600 mt-2">Manage rooms within this building</p>
         </div>
 
         <!-- Rooms Grid -->
@@ -49,15 +32,6 @@
                                 <p class="text-blue-600 font-medium text-sm">Room Photo</p>
                                 <p class="text-blue-400 text-xs">No image available</p>
                             </div>
-                            <!-- Room Type Badge -->
-                            @if($room->type)
-                                <div class="absolute top-3 right-3">
-                                    <span
-                                        class="inline-flex items-center px-2.5 py-0.5 rounded-full text-xs font-medium bg-green-100 text-green-800">
-                                        {{ $room->type }}
-                                    </span>
-                                </div>
-                            @endif
                         </div>
 
                         <!-- Room Info -->
@@ -78,25 +52,11 @@
                                     <p class="text-sm text-gray-700 line-clamp-2 leading-relaxed">{{ $room->description }}</p>
                                 @endif
 
-                                <!-- Room Details -->
-                                <div class="flex items-center justify-between text-sm">
-                                    <div class="flex items-center text-gray-600">
-                                        <i class="fas fa-users mr-1"></i>
-                                        <span>Capacity: {{ $room->capacity ?? 'N/A' }}</span>
-                                    </div>
-                                </div>
-
                                 <!-- Room Statistics -->
-                                <div class="grid grid-cols-2 gap-2 pt-3 border-t border-gray-200">
+                                <div class="grid grid-cols-1 gap-2 pt-3 border-t border-gray-200">
                                     <div class="text-center">
                                         <div class="text-lg font-bold text-blue-600">{{ $room->items->count() ?? 0 }}</div>
                                         <div class="text-xs text-gray-600">Total Items</div>
-                                    </div>
-                                    <div class="text-center">
-                                        <div class="text-lg font-bold text-green-600">
-                                            {{ $room->items->where('status', 'active')->count() ?? 0 }}
-                                        </div>
-                                        <div class="text-xs text-gray-600">Active Items</div>
                                     </div>
                                 </div>
 

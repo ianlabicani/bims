@@ -1,13 +1,22 @@
 @extends('admin.shell')
 
 @section('admin-content')
-    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8">
+    <div class="max-w-7xl mx-auto px-3 sm:px-4 lg:px-8 py-4 sm:py-8">
+        <!-- Breadcrumb Navigation -->
+        <nav class="flex items-center space-x-2 text-sm text-gray-500 mb-6 overflow-x-auto">
+            <a href="{{ route('admin.dashboard') }}" class="hover:text-blue-600 transition-colors whitespace-nowrap">
+                <i class="fas fa-home mr-1"></i>Dashboard
+            </a>
+            <span class="text-gray-300">/</span>
+            <span class="text-gray-900 font-medium whitespace-nowrap">Buildings</span>
+        </nav>
+
         <!-- Header -->
         <div class="mb-8">
-            <div class="flex flex-col sm:flex-row sm:items-center sm:justify-between">
+            <div class="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-4">
                 <div>
-                    <h1 class="text-3xl font-bold text-gray-900">Buildings</h1>
-                    <p class="text-gray-600 mt-1">Manage your campus buildings</p>
+                    <h1 class="text-4xl font-bold text-gray-900">All Buildings</h1>
+                    <p class="text-gray-600 mt-2">View and manage buildings across all campuses</p>
                 </div>
             </div>
         </div>

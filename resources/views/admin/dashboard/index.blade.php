@@ -1,11 +1,19 @@
 @extends('admin.shell')
 
 @section('admin-content')
-    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8">
-        <div class="bg-white rounded-lg shadow-lg p-6">
-            <h1 class="text-3xl font-bold text-gray-900 mb-6">Welcome, {{ $user->name ?? 'Admin' }}</h1>
+    <div class="max-w-7xl mx-auto px-3 sm:px-4 lg:px-8 py-4 sm:py-8">
+        <!-- Breadcrumb Navigation -->
+        <nav class="flex items-center space-x-2 text-sm text-gray-500 mb-6 overflow-x-auto">
+            <span class="text-gray-900 font-medium whitespace-nowrap">Dashboard</span>
+        </nav>
 
-            <!-- Dashboard Stats Cards -->
+        <!-- Header -->
+        <div class="mb-8">
+            <h1 class="text-4xl font-bold text-gray-900">Welcome, {{ $user->name ?? 'Admin' }}</h1>
+            <p class="text-gray-600 mt-2">Overview of your institution's inventory management</p>
+        </div>
+
+        <!-- Dashboard Stats Cards -->
             <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6 mb-8">
                 <div class="bg-blue-50 border border-blue-200 rounded-lg p-6">
                     <div class="flex items-center">
@@ -76,7 +84,7 @@
             <!-- Latest Buildings -->
             <div class="mt-8">
                 <h2 class="text-xl font-semibold text-gray-900 mb-4">Latest Buildings</h2>
-                <div class="bg-white rounded-lg shadow overflow-hidden">
+                <div class="bg-white rounded-lg shadow-lg overflow-hidden">
                     <table class="min-w-full divide-y divide-gray-200">
                         <thead class="bg-gray-50">
                             <tr>
